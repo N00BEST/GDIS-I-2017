@@ -44,14 +44,24 @@ public class Tour {
 				break; 
 		}
 	}
-	
-	public String getCaracteristicas() {
-		return  this.Identificador + " " + 
-			this.Nombre + " " + 
-			this.Disponibilidad; 
-	}
-	
+		
 	public PuntoInteres getPuntoInicial() {
 		return this.PuntoInicial; 
+	}
+	
+	public String getIdentificador(){
+		return this.Identificador; 
+	}
+	
+	public String getNombre() {
+		return this.Nombre; 
+	}
+
+	public void setIdentificador(String identificador) {
+		this.Identificador = identificador; 
+	}
+
+	public void setNombre(String nombre) {
+		this.Nombre = nombre; 
 	}
 }

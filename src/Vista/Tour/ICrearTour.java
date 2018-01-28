@@ -105,6 +105,23 @@ public class ICrearTour extends javax.swing.JFrame {
 			}
 		});
 	}
+	
+	public String getIdentificador() {
+		return this.txtIdentificador.getText(); 
+	}
+	
+	public void desplegarMensaje(String msj){
+		this.lblError.setText(msj); 
+	}
+	
+	public String getNombre() {
+		return this.txtNombre.getText(); 
+	}
+	
+	public void habilitarBtn(boolean b) {
+		this.btnAgregarPI.setEnabled(b);
+		this.btnConfirmar.setEnabled(b);
+	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JButton btnAgregarPI;
