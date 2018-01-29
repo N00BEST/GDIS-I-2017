@@ -39,44 +39,6 @@ public class Ctrl_AdminTours {
 		iCrearTour.setLocationRelativeTo(null); 
 		iCrearTour.setResizable(false); 
 		iCrearTour.setVisible(true); 
-		
-		//Iniciar validación de características
-		//Declaración de variables auxiliares
-		String identificador = ""; 
-		String nombre = ""; 
-		Tour aCrear = new Tour("", ""); 
-		boolean confirmar = false; 
-		boolean cancelar = false; 
-		//Inicio del ciclo principal
-		while(!confirmar && !cancelar) {
-			//Mientras el usuario no confirme o cancele.
-			if(!iCrearTour.getIdentificador().equals(identificador)
-				|| !iCrearTour.getNombre().equals(nombre)) {
-				//Si ocurre una actualización en el textField
-				//de Identificador.
-				identificador = iCrearTour.getIdentificador(); 
-				if(existe(identificador)) {
-					//Si identificador existe
-					iCrearTour.desplegarMensaje("El identi"
-						+ "ficador ya existe"); 
-					
-					//Desabilitar botones
-					iCrearTour.habilitarBtn(false); 
-				} else {
-					//Si identificador no existe
-					iCrearTour.desplegarMensaje(""); 
-					
-					//Inicialización del tour
-					nombre = iCrearTour.getNombre(); 
-					aCrear.setIdentificador(identificador); 
-					aCrear.setNombre(nombre); 
-					
-					//Habilitar botones
-					iCrearTour.habilitarBtn(true); 
-				}
-			}
-		}
-		//Fin del ciclo principal
 	}
 	
 	//Verificar si existe identificador de tour
@@ -91,5 +53,48 @@ public class Ctrl_AdminTours {
 		        }
 		}
 		return existe; 
+	}
+	
+	//Registrar Tour
+	public boolean registrarTour(ICrearTour iCrearTour) {
+		//Buscar los valores en los text fields
+		String id = iCrearTour.getIdentificador(); 
+		String nombre = iCrearTour.getNombre();
+		
+		if(id.isEmpty() || nombre.isEmpty()){
+			//Verifica que text field identificador no esté vacío
+			//O que text field nombre no esté vacío.
+			if(id.isEmpty()){
+				//Mensaje error si identificador vacío.
+				iCrearTour.desplegarMensaje("El identificador"
+				                            + " no puede estar"
+				                            + " vacío.");
+			} else {
+				//Mensaje error si nombre vacío.
+				iCrearTour.desplegarMensaje("El nombre no puede"
+				                            + " estar vacío.");
+			}
+		} else {
+			//En caso de que no estén vacíos.
+			if(existe(id)){
+				//Verifica si el identificador es único.
+				iCrearTour.desplegarMensaje("El identificador " 
+				                            + "existe.");
+			} else {
+				//Si el identificador no existe, agrega el tour 
+				//En ConjuntoTours
+				Tour tour = new Tour(id, nombre); 
+				//Retorna si se pudo registrar el tour
+				return agregar(tour); 
+			}
+		}
+		
+		//Si llega a este punto no pudo registrar el tour
+		return false; 
+	}
+	
+	//Agregar Tour
+	public boolean agregar(Tour t) {
+		return ConjuntoTours.add(t); 
 	}
 }

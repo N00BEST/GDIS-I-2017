@@ -45,11 +45,8 @@ public class IAdm_Comite extends javax.swing.JFrame {
                 setPreferredSize(new java.awt.Dimension(650, 160));
                 setResizable(false);
 
-                jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
                 jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
                 jLabel1.setText("Seleccione una opción:");
-                jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
                 jButtonObras.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
                 jButtonObras.setText("Administrar Obras");
@@ -58,7 +55,6 @@ public class IAdm_Comite extends javax.swing.JFrame {
                                 jButtonObrasActionPerformed(evt);
                         }
                 });
-                jPanel2.add(jButtonObras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 160, -1));
 
                 jButtonPI.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
                 jButtonPI.setText("Administrar Puntos de Interés");
@@ -67,7 +63,6 @@ public class IAdm_Comite extends javax.swing.JFrame {
                                 jButtonPIActionPerformed(evt);
                         }
                 });
-                jPanel2.add(jButtonPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
                 jButtonTours.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
                 jButtonTours.setText("Administrar Tours");
@@ -76,7 +71,6 @@ public class IAdm_Comite extends javax.swing.JFrame {
                                 jButtonToursActionPerformed(evt);
                         }
                 });
-                jPanel2.add(jButtonTours, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 170, -1));
 
                 jButtonVolver.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
                 jButtonVolver.setText("Salir");
@@ -85,20 +79,51 @@ public class IAdm_Comite extends javax.swing.JFrame {
                                 jButtonVolverActionPerformed(evt);
                         }
                 });
-                jPanel2.add(jButtonVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 70, -1));
+
+                javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+                jPanel2.setLayout(jPanel2Layout);
+                jPanel2Layout.setHorizontalGroup(
+                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel1))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jButtonObras, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButtonPI)
+                                .addGap(49, 49, 49)
+                                .addComponent(jButtonTours, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(550, 550, 550)
+                                .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                );
+                jPanel2Layout.setVerticalGroup(
+                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel1)
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonObras)
+                                        .addComponent(jButtonPI)
+                                        .addComponent(jButtonTours))
+                                .addGap(17, 17, 17)
+                                .addComponent(jButtonVolver))
+                );
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
                 jPanel1Layout.setHorizontalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                 );
                 jPanel1Layout.setVerticalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                 );
 

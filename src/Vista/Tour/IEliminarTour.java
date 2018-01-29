@@ -16,16 +16,36 @@ public class IEliminarTour extends javax.swing.JFrame {
                 btnNo = new javax.swing.JButton();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                 lblMensajeEliminar.setText("¿Desea eliminar el tour: Identificador - Nombre?");
-                getContentPane().add(lblMensajeEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
                 btnSi.setText("Sí");
-                getContentPane().add(btnSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 110, 70, -1));
 
                 btnNo.setText("No");
-                getContentPane().add(btnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 70, -1));
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(lblMensajeEliminar))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(btnSi, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)
+                                .addComponent(btnNo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                );
+                layout.setVerticalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(lblMensajeEliminar)
+                                .addGap(56, 56, 56)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnSi)
+                                        .addComponent(btnNo)))
+                );
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents

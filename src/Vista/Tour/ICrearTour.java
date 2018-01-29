@@ -21,27 +21,22 @@ public class ICrearTour extends javax.swing.JFrame {
                 btnAgregarPI = new javax.swing.JButton();
                 btnConfirmar = new javax.swing.JButton();
                 btnCancelar = new javax.swing.JButton();
-                lblError = new javax.swing.JLabel();
+                lblMsgError = new javax.swing.JLabel();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
                 jLabel1.setText("Identificador (*): ");
-                jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 40, -1, 20));
-                jPanel1.add(txtIdentificador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 60, -1));
 
                 jLabel2.setText("Nombre:");
-                jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 20));
-                jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 370, -1));
 
                 btnAgregarPI.setText("Agregar Punto de Interés");
-                btnAgregarPI.setEnabled(false);
-                jPanel1.add(btnAgregarPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 220, -1));
 
                 btnConfirmar.setText("Confirmar");
-                btnConfirmar.setEnabled(false);
-                jPanel1.add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 130, -1));
+                btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnConfirmarActionPerformed(evt);
+                        }
+                });
 
                 btnCancelar.setText("Cancelar");
                 btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -49,20 +44,64 @@ public class ICrearTour extends javax.swing.JFrame {
                                 btnCancelarActionPerformed(evt);
                         }
                 });
-                jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 130, -1));
 
-                lblError.setText("El identificador ya existe.");
-                jPanel1.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
+                lblMsgError.setText(".");
+
+                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+                jPanel1.setLayout(jPanel1Layout);
+                jPanel1Layout.setHorizontalGroup(
+                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel1)
+                                .addGap(47, 47, 47)
+                                .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblMsgError))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2)
+                                .addGap(89, 89, 89)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(310, 310, 310)
+                                .addComponent(btnAgregarPI, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(240, 240, 240)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                );
+                jPanel1Layout.setVerticalGroup(
+                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblMsgError))
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addComponent(btnAgregarPI)
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnConfirmar)
+                                        .addComponent(btnCancelar))
+                                .addContainerGap(22, Short.MAX_VALUE))
+                );
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 );
 
                 pack();
@@ -73,6 +112,15 @@ public class ICrearTour extends javax.swing.JFrame {
 		this.dispose(); 
 		ctrlAdminTour.adminTour();
         }//GEN-LAST:event_btnCancelarActionPerformed
+
+        private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+                Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance(); 
+		if(ctrlAdminTour.registrarTour(this)){
+			//Verifica si se pudo registrar el tour
+		        this.dispose(); 
+		        ctrlAdminTour.adminTour();
+		}
+        }//GEN-LAST:event_btnConfirmarActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
@@ -111,7 +159,7 @@ public class ICrearTour extends javax.swing.JFrame {
 	}
 	
 	public void desplegarMensaje(String msj){
-		this.lblError.setText(msj); 
+		this.lblMsgError.setText(msj); 
 	}
 	
 	public String getNombre() {
@@ -130,7 +178,7 @@ public class ICrearTour extends javax.swing.JFrame {
         private javax.swing.JLabel jLabel1;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JPanel jPanel1;
-        private javax.swing.JLabel lblError;
+        private javax.swing.JLabel lblMsgError;
         private javax.swing.JTextField txtIdentificador;
         private javax.swing.JTextField txtNombre;
         // End of variables declaration//GEN-END:variables

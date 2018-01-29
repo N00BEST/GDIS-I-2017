@@ -21,7 +21,6 @@ public class IAdminTour extends javax.swing.JFrame {
                 jLabel2 = new javax.swing.JLabel();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                 btnCrearTour.setText("Crear Tour");
                 btnCrearTour.addActionListener(new java.awt.event.ActionListener() {
@@ -29,16 +28,12 @@ public class IAdminTour extends javax.swing.JFrame {
                                 btnCrearTourActionPerformed(evt);
                         }
                 });
-                getContentPane().add(btnCrearTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, -1));
 
                 btnModificarTour.setText("Modificar Tour");
-                getContentPane().add(btnModificarTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 140, -1));
 
                 btnEliminarTour.setText("Eliminar Tour");
-                getContentPane().add(btnEliminarTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 120, -1));
 
                 btnConsultarTour.setText("Consultar Tour");
-                getContentPane().add(btnConsultarTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 130, -1));
 
                 btnFinalizar.setText("Finalizar");
                 btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -46,10 +41,43 @@ public class IAdminTour extends javax.swing.JFrame {
                                 btnFinalizarActionPerformed(evt);
                         }
                 });
-                getContentPane().add(btnFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 110, -1));
 
                 jLabel2.setText("Seleccione una opción:");
-                getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel2))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(btnCrearTour, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnModificarTour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnEliminarTour, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnConsultarTour, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(470, 470, 470)
+                                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                );
+                layout.setVerticalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel2)
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnCrearTour)
+                                        .addComponent(btnModificarTour)
+                                        .addComponent(btnEliminarTour)
+                                        .addComponent(btnConsultarTour))
+                                .addGap(27, 27, 27)
+                                .addComponent(btnFinalizar))
+                );
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents
