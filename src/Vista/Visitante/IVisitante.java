@@ -5,6 +5,8 @@
  */
 package Vista.Visitante;
 
+import Controlador.Ctrl_Recorrido;
+
 /**
  *
  * @author manue
@@ -27,21 +29,66 @@ public class IVisitante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnConsultarToursDisponibles = new javax.swing.JButton();
+        btnRecorrerTour = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnConsultarToursDisponibles.setText("Consultar Tours Disponibles");
+        btnConsultarToursDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarToursDisponiblesActionPerformed(evt);
+            }
+        });
+
+        btnRecorrerTour.setText("Recorrer Tour");
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnConsultarToursDisponibles)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnRecorrerTour)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConsultarToursDisponibles)
+                    .addComponent(btnRecorrerTour))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConsultarToursDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarToursDisponiblesActionPerformed
+        Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
+        ctrl_Recorrido.ConsultarToursDisponibles();
+    }//GEN-LAST:event_btnConsultarToursDisponiblesActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
+        ctrl_Recorrido.Salir();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +126,8 @@ public class IVisitante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultarToursDisponibles;
+    private javax.swing.JButton btnRecorrerTour;
+    private javax.swing.JButton btnSalir;
     // End of variables declaration//GEN-END:variables
 }

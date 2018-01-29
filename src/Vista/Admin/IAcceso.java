@@ -1,5 +1,8 @@
 
 package Vista.Admin;
+
+import Controlador.Ctrl_Recorrido;
+
 public class IAcceso extends javax.swing.JFrame {
     public IAcceso() {
         initComponents();
@@ -14,7 +17,7 @@ public class IAcceso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnVisitante = new javax.swing.JButton();
         jButtonComite = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
 
@@ -22,11 +25,11 @@ public class IAcceso extends javax.swing.JFrame {
         setTitle("COPRED");
         setResizable(false);
 
-        jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        jButton1.setText("Visitante");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVisitante.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        btnVisitante.setText("Visitante");
+        btnVisitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVisitanteActionPerformed(evt);
             }
         });
 
@@ -56,7 +59,7 @@ public class IAcceso extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(btnVisitante)
                 .addGap(41, 41, 41)
                 .addComponent(jButtonComite, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -66,7 +69,7 @@ public class IAcceso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnVisitante)
                     .addComponent(jButtonComite))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonSalir)
@@ -76,9 +79,10 @@ public class IAcceso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisitanteActionPerformed
+        Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
+        ctrl_Recorrido.Visitante();
+    }//GEN-LAST:event_btnVisitanteActionPerformed
 
     private void jButtonComiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComiteActionPerformed
         
@@ -95,7 +99,7 @@ public class IAcceso extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVisitante;
     private javax.swing.JButton jButtonComite;
     private javax.swing.JButton jButtonSalir;
     // End of variables declaration//GEN-END:variables
