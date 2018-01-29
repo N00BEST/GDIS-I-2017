@@ -1,5 +1,8 @@
 package Vista.Tour;
 
+import Controlador.Ctrl_AdminTours;
+import javax.swing.table.DefaultTableModel;
+
 public class IConsultarTour extends javax.swing.JFrame {
 
 	public IConsultarTour() {
@@ -15,17 +18,14 @@ public class IConsultarTour extends javax.swing.JFrame {
                 jScrollPane1 = new javax.swing.JScrollPane();
                 tblTours = new javax.swing.JTable();
                 jLabel1 = new javax.swing.JLabel();
-                lblMensajeError = new javax.swing.JLabel();
+                lblMsgError = new javax.swing.JLabel();
                 btnContinuar = new javax.swing.JButton();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
                 tblTours.setModel(new javax.swing.table.DefaultTableModel(
                         new Object [][] {
-                                {null, null, null},
-                                {null, null, null},
-                                {null, null, null},
-                                {null, null, null}
+
                         },
                         new String [] {
                                 "Identificador", "Nombre", "Disponibilidad"
@@ -43,33 +43,41 @@ public class IConsultarTour extends javax.swing.JFrame {
 
                 jLabel1.setText("Tours existentes:");
 
-                lblMensajeError.setText("No se han creado tours");
+                lblMsgError.setText(".");
 
                 btnContinuar.setText("Continuar");
+                btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnContinuarActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
                 jPanel1Layout.setHorizontalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel1)
-                                .addGap(206, 206, 206)
-                                .addComponent(lblMensajeError))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(319, 319, 319)
-                                .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(319, 319, 319)
+                                                .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jLabel1)
+                                                                .addGap(165, 165, 165)
+                                                                .addComponent(lblMsgError, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(2, 10, Short.MAX_VALUE))
                 );
                 jPanel1Layout.setVerticalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
-                                        .addComponent(lblMensajeError))
+                                        .addComponent(lblMsgError))
                                 .addGap(16, 16, 16)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
@@ -90,6 +98,20 @@ public class IConsultarTour extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
+        private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+                Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance(); 
+		this.dispose(); 
+		ctrlAdminTour.adminTour();
+        }//GEN-LAST:event_btnContinuarActionPerformed
+	
+	public void desplegarMensaje(String msj){
+		this.lblMsgError.setText(msj); 
+	}
+	
+	public DefaultTableModel getTblTours() {
+		return (DefaultTableModel) this.tblTours.getModel(); 
+	}
+	
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -127,7 +149,7 @@ public class IConsultarTour extends javax.swing.JFrame {
         private javax.swing.JLabel jLabel1;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JScrollPane jScrollPane1;
-        private javax.swing.JLabel lblMensajeError;
+        private javax.swing.JLabel lblMsgError;
         private javax.swing.JTable tblTours;
         // End of variables declaration//GEN-END:variables
 }

@@ -2,8 +2,10 @@ package Controlador;
 
 import Modelo.Tour.Tour;
 import Vista.Admin.IAdminTour;
+import Vista.Tour.IConsultarTour;
 import Vista.Tour.ICrearTour;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Ctrl_AdminTours {
 	//Atributos
@@ -32,9 +34,8 @@ public class Ctrl_AdminTours {
 		iAdminTour.setVisible(true); 
 	}
 	
-	//Creacion de un tour
+	//Abrir ventana de Crear Tour
 	public void crearTour() {
-		//Abrir ventana de Crear Tour
 		ICrearTour iCrearTour = new ICrearTour(); 
 		iCrearTour.setLocationRelativeTo(null); 
 		iCrearTour.setResizable(false); 
@@ -96,5 +97,30 @@ public class Ctrl_AdminTours {
 	//Agregar Tour
 	public boolean agregar(Tour t) {
 		return ConjuntoTours.add(t); 
+	}
+	
+	//Abrir ventana de Consultar Tour.
+	public void consultarTour() {
+		IConsultarTour iConsultarTour = new IConsultarTour(); 
+		iConsultarTour.setLocationRelativeTo(null); 
+		iConsultarTour.setResizable(false); 
+		
+		//Cargar tours existentes a la tabla
+		if(ConjuntoTours.size() > 0){
+			DefaultTableModel tblTours; 
+		        tblTours = iConsultarTour.getTblTours(); 
+		        String[] fila = new String[3]; 
+		        for(Tour tour : ConjuntoTours) {
+			        //Para cada elemento en Conjunto Tours
+			        fila[0] = tour.getIdentificador(); 
+			        fila[1] = tour.getNombre(); 
+			        fila[2] = tour.getDisponibilidad(); 
+			        tblTours.addRow(fila); 
+		        }
+		} else {
+			iConsultarTour.desplegarMensaje("No se han creado tours.");
+		}
+		//Mostrar ventana
+		iConsultarTour.setVisible(true);
 	}
 }
