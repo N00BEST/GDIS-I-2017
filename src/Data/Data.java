@@ -12,9 +12,9 @@ import javax.swing.ImageIcon;
 
 public class Data {
     
-    String obrasFilePath = "/Users/mariapaulaherrero/NetBeansProjects/Equipo2/src/Data/Obras.txt";
-    String piFilePath = "/Users/mariapaulaherrero/NetBeansProjects/Equipo2/src/Data/PI.txt";
-    String imgPath = "/Users/mariapaulaherrero/NetBeansProjects/Equipo2/Imagenes/";
+    String obrasFilePath = "src/Data/Obras.txt";
+    String piFilePath = "src/Data/PI.txt";
+    String imgPath = "src/Imagenes/";
         
     
     //ATRIBUTOS
