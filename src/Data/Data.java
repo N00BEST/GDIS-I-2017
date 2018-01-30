@@ -74,7 +74,7 @@ public class Data {
             String ubicacion = datosObra[5].trim();
             String descripcion = datosObra[6];
             String imagenPath = imgPath + datosObra[7].trim();
-            ImageIcon imagen = new ImageIcon(imagenPath);
+            ImageIcon imagen = new ImageIcon(imagenPath);         
             char estatus = datosObra[8].charAt(0);
             System.out.println("Por procesar obra: " + id);
             String mensaje = patrimonio.registrar(titulo, id, aCreacion, nombreA, ubicacion, estatus, descripcion, imagen, apellidoA);

@@ -82,6 +82,7 @@ public class IAcceso extends javax.swing.JFrame {
     private void btnVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisitanteActionPerformed
         Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
         ctrl_Recorrido.visitante();
+        this.dispose();
     }//GEN-LAST:event_btnVisitanteActionPerformed
 
     private void jButtonComiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComiteActionPerformed

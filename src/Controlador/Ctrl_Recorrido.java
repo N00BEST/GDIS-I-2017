@@ -1,6 +1,7 @@
 
 package Controlador;
 
+import Modelo.Tour.ConjuntoTours;
 import Modelo.Tour.Tour;
 import Vista.Admin.IAcceso;
 import Vista.Visitante.IVisitante;
@@ -11,17 +12,28 @@ import javax.swing.table.DefaultTableModel;
 
 public class Ctrl_Recorrido {
         private static Ctrl_Recorrido uniqueCtrl_Recorrido=null;
+        private static Tour TourSeleccionado=null;
         //Solucion temporal del arraylist
-        private static ArrayList<Tour> ConjuntoTours = null; 
+
+    public static Tour getTourSeleccionado() {
+        return TourSeleccionado;
+    }
+         
         
         //Metodos
         //Constructor
         private Ctrl_Recorrido(){}
+
+        public static void setTourSeleccionado(Tour TourSeleccionado) {
+            Ctrl_Recorrido.TourSeleccionado = TourSeleccionado;
+        }
        
+        
+        
         public static Ctrl_Recorrido getInstance(){
             if (uniqueCtrl_Recorrido == null){
                 uniqueCtrl_Recorrido= new Ctrl_Recorrido();
-                ConjuntoTours = new ArrayList();
+                ;
             }
             return uniqueCtrl_Recorrido;
         }
@@ -33,31 +45,54 @@ public class Ctrl_Recorrido {
         }
         //Generar el subconjuto de tours disponibles, abrir IConsultarToursDispo
         //nibles
+        
+        public static ArrayList<Tour> generarTourDisponible(ArrayList<Tour> ct){
+            ArrayList<Tour> sc = new ArrayList();
+            if(ct.size() > 0){
+                    for(Tour t : ct){
+                        if (consultarDisponibilidad(t) == "S"){
+                            //Agregar los tours disponibles
+
+                            sc.add(t);
+                            System.out.println("Se agrego tour");
+                        }
+                    }
+                    
+                }
+            return sc;
+        
+        }
+        
+        public static void establecerTourSeleccionado(ArrayList<Tour> ct, int i){
+            ArrayList<Tour> sc = generarTourDisponible(ct);
+            setTourSeleccionado(sc.get(i));
+        
+        
+        }
         public void consultarToursDisponibles(){
             //Abre la interfaz
             IConsultarToursDisponibles ictd = new IConsultarToursDisponibles();
             ictd.setLocationRelativeTo(null);
             
-            
+            ConjuntoTours conjuntoTours = ConjuntoTours.getInstance();
+            ArrayList<Tour> ct = conjuntoTours.getTours();
             //Se crea el SubConjunto de tours
-            ArrayList<Tour> sc = new ArrayList();
-            if(ConjuntoTours.size() > 0){
-                for(Tour t : ConjuntoTours){
-                    if (consultarDisponibilidad(t) == "S"){
-                        //Agregar los tours disponibles
-                        sc.add(t);
-                    }
-                }
-                //Cargar los tours en la tabla
-                DefaultTableModel tblToursD;               
-                tblToursD = ictd.getTblToursD();
-                String[] fila = new String[1]; 
-                for(Tour t : sc){
-                    fila[0] = t.getNombre();
-                    tblToursD.addRow(fila);
-                }
-            } else {
+          
+            ArrayList<Tour> sc = generarTourDisponible(ct);
+            
+            if(sc.size() <= 0){
                 ictd.desplegarMensaje("No hay tours Disponibles");
+            } else {
+            //Cargar los tours en la tabla
+                    DefaultTableModel tblToursD;               
+                    tblToursD = ictd.getTblToursD();
+                    String[] fila = new String[1]; 
+                    for(Tour t : sc){
+                        fila[0] = t.getNombre();
+
+                        tblToursD.addRow(fila);
+                    }
+            
             }
             
             //hacer visible la interfaz            
@@ -77,7 +112,7 @@ public class Ctrl_Recorrido {
             iacceso.setVisible(true);
         }
         //Retornar la disponibilidad      
-        public String consultarDisponibilidad(Tour t){
+        public static String consultarDisponibilidad(Tour t){
             return t.getDisponibilidad();    
         }
         

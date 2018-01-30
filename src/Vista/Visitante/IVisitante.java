@@ -27,6 +27,11 @@ public class IVisitante extends javax.swing.JFrame {
         });
 
         btnRecorrerTour.setText("Recorrer Tour");
+        btnRecorrerTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecorrerTourActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +72,7 @@ public class IVisitante extends javax.swing.JFrame {
     private void btnConsultarToursDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarToursDisponiblesActionPerformed
         Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
         ctrl_Recorrido.consultarToursDisponibles();
+        this.dispose();
     }//GEN-LAST:event_btnConsultarToursDisponiblesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -75,6 +81,16 @@ public class IVisitante extends javax.swing.JFrame {
         ctrl_Recorrido.salir();
 	this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnRecorrerTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecorrerTourActionPerformed
+        Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
+        if (ctrl_Recorrido.getTourSeleccionado() == null){
+            ctrl_Recorrido.consultarToursDisponibles();
+            this.dispose();
+        }else{
+            System.out.println("AQUI SE MOSTRARIAN LAS OBRAS");
+        }
+    }//GEN-LAST:event_btnRecorrerTourActionPerformed
 
    
     public static void main(String args[]) {

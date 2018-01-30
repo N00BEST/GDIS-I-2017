@@ -1,6 +1,9 @@
 package Vista.Visitante;
 
 import Controlador.Ctrl_Recorrido;
+import Modelo.Tour.ConjuntoTours;
+import Modelo.Tour.Tour;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class IConsultarToursDisponibles extends javax.swing.JFrame {
@@ -22,11 +25,7 @@ public class IConsultarToursDisponibles extends javax.swing.JFrame {
 
         tblToursD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Tours Disponibles"
@@ -77,6 +76,13 @@ public class IConsultarToursDisponibles extends javax.swing.JFrame {
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         Ctrl_Recorrido ctrl_Recorrido= Ctrl_Recorrido.getInstance();
         ctrl_Recorrido.finalizar();
+        int fila = tblToursD.getSelectedRow();
+        ConjuntoTours conjuntoTours = ConjuntoTours.getInstance();
+        ArrayList<Tour> ct = conjuntoTours.getTours();
+            if (fila >= 0){
+                ctrl_Recorrido.establecerTourSeleccionado(ct,fila);
+            }
+        this.dispose();
     }//GEN-LAST:event_btnFinalizarActionPerformed
     
     public DefaultTableModel getTblToursD() {
@@ -118,6 +124,7 @@ public class IConsultarToursDisponibles extends javax.swing.JFrame {
             }
         });
     }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFinalizar;
