@@ -79,6 +79,7 @@ public class IVisitante extends javax.swing.JFrame {
         Ctrl_Recorrido ctrl_Recorrido;
         ctrl_Recorrido = Ctrl_Recorrido.getInstance();
         ctrl_Recorrido.salir();
+        ctrl_Recorrido.setTourSeleccionado(null);
 	this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
