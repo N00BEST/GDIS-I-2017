@@ -100,8 +100,43 @@ public class IConsultarTour extends javax.swing.JFrame {
 
         private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
                 Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance(); 
-		this.dispose(); 
-		ctrlAdminTour.adminTour();
+		//Guarda la fila seleccionada. -1 si no se selecciona ninguna
+		int fila = tblTours.getSelectedRow();
+		
+		//Verifica si se viene desde el Modificar Tour, Eliminar Tour o
+		//Consultar Tour
+		switch(this.Continuar) {
+			case 0: 
+				//Caso Consultar Tour
+				ctrlAdminTour.adminTour();
+				this.dispose();
+				break; 
+				
+			case 1: 
+				//Caso Modificar Tour
+				if(fila > -1) {
+					//Si se seleccionó un tour
+				} else {
+					//Si no, volver a Administrar Tours
+					ctrlAdminTour.adminTour();
+				        this.dispose();
+				}
+				break; 
+				
+			case 2: 
+				//Caso Eliminar Tour
+				if(fila > -1) {
+					//Si se seleccionó un tour
+					this.dispose(); 
+					//Eliminar tour
+					ctrlAdminTour.eliminar(fila);
+				} else {
+					//Si no, volver a Administrar Tours
+					ctrlAdminTour.adminTour();
+				        this.dispose();
+				}
+				break; 
+		}
         }//GEN-LAST:event_btnContinuarActionPerformed
 	
 	public void desplegarMensaje(String msj){
@@ -110,6 +145,10 @@ public class IConsultarTour extends javax.swing.JFrame {
 	
 	public DefaultTableModel getTblTours() {
 		return (DefaultTableModel) this.tblTours.getModel(); 
+	}
+	
+	public void setContinuar(int destino) {
+		this.Continuar = destino; 
 	}
 	
 	public static void main(String args[]) {
@@ -152,4 +191,5 @@ public class IConsultarTour extends javax.swing.JFrame {
         private javax.swing.JLabel lblMsgError;
         private javax.swing.JTable tblTours;
         // End of variables declaration//GEN-END:variables
+	private int Continuar; 
 }

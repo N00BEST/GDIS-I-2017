@@ -32,6 +32,11 @@ public class IAdminTour extends javax.swing.JFrame {
                 btnModificarTour.setText("Modificar Tour");
 
                 btnEliminarTour.setText("Eliminar Tour");
+                btnEliminarTour.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnEliminarTourActionPerformed(evt);
+                        }
+                });
 
                 btnConsultarTour.setText("Consultar Tour");
                 btnConsultarTour.addActionListener(new java.awt.event.ActionListener() {
@@ -104,10 +109,17 @@ public class IAdminTour extends javax.swing.JFrame {
 
         private void btnConsultarTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarTourActionPerformed
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance();
-		ctrlAdminTours.consultarTour(); 
+		ctrlAdminTours.consultarTour(0); 
 		
 		this.dispose();
         }//GEN-LAST:event_btnConsultarTourActionPerformed
+
+        private void btnEliminarTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTourActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance();
+		ctrlAdminTours.consultarTour(2); 
+		
+		this.dispose();
+        }//GEN-LAST:event_btnEliminarTourActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */

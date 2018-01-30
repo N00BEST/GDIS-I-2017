@@ -4,6 +4,7 @@ import Modelo.Tour.Tour;
 import Vista.Admin.IAdminTour;
 import Vista.Tour.IConsultarTour;
 import Vista.Tour.ICrearTour;
+import Vista.Tour.IEliminarTour;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -100,10 +101,11 @@ public class Ctrl_AdminTours {
 	}
 	
 	//Abrir ventana de Consultar Tour.
-	public void consultarTour() {
+	public void consultarTour(int destino) {
 		IConsultarTour iConsultarTour = new IConsultarTour(); 
 		iConsultarTour.setLocationRelativeTo(null); 
 		iConsultarTour.setResizable(false); 
+		iConsultarTour.setContinuar(destino); 
 		
 		//Cargar tours existentes a la tabla
 		if(ConjuntoTours.size() > 0){
@@ -122,5 +124,29 @@ public class Ctrl_AdminTours {
 		}
 		//Mostrar ventana
 		iConsultarTour.setVisible(true);
+	}
+	
+	//Abrir ventana de Consultar Tour desde Eliminar Tour o Modificar Tour
+	public void eliminar(int index) {
+		IEliminarTour iEliminarTour = new IEliminarTour(); 
+		iEliminarTour.setLocationRelativeTo(null); 
+		iEliminarTour.setResizable(false); 
+		
+		//Le indica a la interfaz el tour a eliminar
+		iEliminarTour.setTour(ConjuntoTours.get(index)); 
+		
+		//Desplegar mensaje de eliminar
+		String mensaje = "¿Desea eliminar el tour: " + 
+		                  ConjuntoTours.get(index).getIdentificador() +
+		                 " - " + ConjuntoTours.get(index).getNombre() +
+				 "?"; 
+		iEliminarTour.desplegarMensaje(mensaje); 
+		
+		iEliminarTour.setVisible(true);
+	}
+	
+	//Eliminar Tour de Conjunto Tours
+	public boolean eliminar(Tour t) {
+		return ConjuntoTours.remove(t); 
 	}
 }

@@ -1,5 +1,8 @@
 package Vista.Tour;
 
+import Controlador.Ctrl_AdminTours;
+import Modelo.Tour.Tour;
+
 public class IEliminarTour extends javax.swing.JFrame {
 
 	public IEliminarTour() {
@@ -20,6 +23,11 @@ public class IEliminarTour extends javax.swing.JFrame {
                 lblMensajeEliminar.setText("¿Desea eliminar el tour: Identificador - Nombre?");
 
                 btnSi.setText("Sí");
+                btnSi.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnSiActionPerformed(evt);
+                        }
+                });
 
                 btnNo.setText("No");
 
@@ -50,6 +58,24 @@ public class IEliminarTour extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
+        private void btnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		
+		//Elimina el tour
+		ctrlAdminTours.eliminar(this.tour); 
+		this.dispose(); 
+		//Regresa a Administrar Tours
+		ctrlAdminTours.adminTour();
+        }//GEN-LAST:event_btnSiActionPerformed
+	
+	public void setTour(Tour tour) {
+		this.tour = tour; 
+	}
+	
+	public void desplegarMensaje(String msg) {
+		this.lblMensajeEliminar.setText(msg); 
+	}
+	
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -87,4 +113,5 @@ public class IEliminarTour extends javax.swing.JFrame {
         private javax.swing.JButton btnSi;
         private javax.swing.JLabel lblMensajeEliminar;
         // End of variables declaration//GEN-END:variables
+	private Tour tour; 
 }
