@@ -116,7 +116,7 @@ public class IAdminTour extends javax.swing.JFrame {
 
         private void btnEliminarTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTourActionPerformed
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance();
-		ctrlAdminTours.consultarTour(2); 
+		ctrlAdminTours.eliminar(); 
 		
 		this.dispose();
         }//GEN-LAST:event_btnEliminarTourActionPerformed

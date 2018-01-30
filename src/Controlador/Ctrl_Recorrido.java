@@ -2,6 +2,7 @@
 package Controlador;
 
 import Modelo.Tour.Tour;
+import Vista.Admin.IAcceso;
 import Vista.Visitante.IVisitante;
 import Vista.Visitante.IConsultarToursDisponibles;
 import java.util.ArrayList;
@@ -69,9 +70,11 @@ public class Ctrl_Recorrido {
             ivisitante.setVisible(true); 
                 
         }
-        //Salir del programa
+        //Salir del componente de visitante
         public void salir(){
-            System.exit(0);
+            IAcceso iacceso = new IAcceso();
+            iacceso.setLocationRelativeTo(null); 		 
+            iacceso.setVisible(true);
         }
         //Retornar la disponibilidad      
         public String consultarDisponibilidad(Tour t){

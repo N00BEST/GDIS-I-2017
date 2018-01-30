@@ -62,7 +62,7 @@ public class IEliminarTour extends javax.swing.JFrame {
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
 		
 		//Elimina el tour
-		ctrlAdminTours.eliminar(this.tour); 
+		ctrlAdminTours.eliminar(null); 
 		this.dispose(); 
 		//Regresa a Administrar Tours
 		ctrlAdminTours.adminTour();

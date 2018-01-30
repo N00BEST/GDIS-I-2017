@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Tour.ConjuntoTours;
 import Modelo.Tour.Tour;
 import Vista.Admin.IAdminTour;
 import Vista.Tour.IConsultarTour;
@@ -11,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 public class Ctrl_AdminTours {
 	//Atributos
 	private static Ctrl_AdminTours uniqueCtrlAdminTours = null; 
-	private static ArrayList<Tour> ConjuntoTours = null; 
+	private static Tour tourSeleccionado = null; 
 	
 	//Métodos 
 	//Constructor
@@ -20,8 +21,7 @@ public class Ctrl_AdminTours {
 	//Punto global de acceso. 
 	public static Ctrl_AdminTours getInstance() {
 		if(uniqueCtrlAdminTours == null) {
-			uniqueCtrlAdminTours = new Ctrl_AdminTours(); 
-			ConjuntoTours = new ArrayList(); 
+			uniqueCtrlAdminTours = new Ctrl_AdminTours();
 		}
 		
 		return uniqueCtrlAdminTours; 
@@ -45,16 +45,8 @@ public class Ctrl_AdminTours {
 	
 	//Verificar si existe identificador de tour
 	public boolean existe(String id) {
-		boolean existe = false; 
-		if(ConjuntoTours.size() > 0) {
-		        for(Tour tour : ConjuntoTours) {
-                        //Para cada tour en el conjunto
-			        if(tour.getIdentificador().equals(id)) {
-				        existe = true; 
-			        }
-		        }
-		}
-		return existe; 
+		ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
+		return conjuntoTours.existe(id);
 	}
 	
 	//Registrar Tour
@@ -85,19 +77,18 @@ public class Ctrl_AdminTours {
 			} else {
 				//Si el identificador no existe, agrega el tour 
 				//En ConjuntoTours
+				
+				ConjuntoTours conjuntoTours; 
+				conjuntoTours = ConjuntoTours.getInstance(); 
+				
 				Tour tour = new Tour(id, nombre); 
 				//Retorna si se pudo registrar el tour
-				return agregar(tour); 
+				return conjuntoTours.agregar(tour); 
 			}
 		}
 		
 		//Si llega a este punto no pudo registrar el tour
 		return false; 
-	}
-	
-	//Agregar Tour
-	public boolean agregar(Tour t) {
-		return ConjuntoTours.add(t); 
 	}
 	
 	//Abrir ventana de Consultar Tour.
@@ -107,12 +98,15 @@ public class Ctrl_AdminTours {
 		iConsultarTour.setResizable(false); 
 		iConsultarTour.setContinuar(destino); 
 		
+		ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
+		ArrayList<Tour> tours = conjuntoTours.getTours(); 
+		
 		//Cargar tours existentes a la tabla
-		if(ConjuntoTours.size() > 0){
+		if(tours.size() > 0){
 			DefaultTableModel tblTours; 
 		        tblTours = iConsultarTour.getTblTours(); 
 		        String[] fila = new String[3]; 
-		        for(Tour tour : ConjuntoTours) {
+		        for(Tour tour : tours) {
 			        //Para cada elemento en Conjunto Tours
 			        fila[0] = tour.getIdentificador(); 
 			        fila[1] = tour.getNombre(); 
@@ -127,26 +121,49 @@ public class Ctrl_AdminTours {
 	}
 	
 	//Abrir ventana de Consultar Tour desde Eliminar Tour o Modificar Tour
-	public void eliminar(int index) {
-		IEliminarTour iEliminarTour = new IEliminarTour(); 
-		iEliminarTour.setLocationRelativeTo(null); 
-		iEliminarTour.setResizable(false); 
+	public void eliminar() {
+		//Verificar que se haya seleccionado un tour
+		if(tourSeleccionado == null) {
+			//Incluir funcionamiento de consultar tour si no se ha
+			//seleccionado un tour
+			consultarTour(2); 			
+		} else {
+			//Si se seleccionó un tour, proceder a eliminarlo. 
+		        IEliminarTour iEliminarTour = new IEliminarTour(); 
+		        iEliminarTour.setLocationRelativeTo(null); 
+		        iEliminarTour.setResizable(false); 
+
+		        //Desplegar mensaje de eliminar
+		        String mensaje = "¿Desea eliminar el tour: " + 
+		                          tourSeleccionado.getIdentificador() +
+		                          " - " + tourSeleccionado.getNombre() +
+				          "?"; 
+		        iEliminarTour.desplegarMensaje(mensaje); 
 		
-		//Le indica a la interfaz el tour a eliminar
-		iEliminarTour.setTour(ConjuntoTours.get(index)); 
-		
-		//Desplegar mensaje de eliminar
-		String mensaje = "¿Desea eliminar el tour: " + 
-		                  ConjuntoTours.get(index).getIdentificador() +
-		                 " - " + ConjuntoTours.get(index).getNombre() +
-				 "?"; 
-		iEliminarTour.desplegarMensaje(mensaje); 
-		
-		iEliminarTour.setVisible(true);
+		        iEliminarTour.setVisible(true);
+		}
 	}
 	
 	//Eliminar Tour de Conjunto Tours
 	public boolean eliminar(Tour t) {
-		return ConjuntoTours.remove(t); 
+		ConjuntoTours conjuntoTours = ConjuntoTours.getInstance();
+		//Eliminar el tour seleccionado
+		if(conjuntoTours.eliminar(tourSeleccionado)){
+			tourSeleccionado = null;
+		        return true;
+		} else {
+		        return false;
+		}
+	}
+	
+	//Seleccionar Tour
+	public boolean setTourSeleccionado(int index) {
+		if(index >= 0) {
+		        ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
+		        tourSeleccionado = conjuntoTours.getTour(index); 
+			return true; 
+		} else {
+			return false; 
+		}
 	}
 }
