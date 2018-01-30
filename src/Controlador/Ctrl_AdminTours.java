@@ -1,11 +1,14 @@
 package Controlador;
 
+import Modelo.PI.PuntoInteres;
 import Modelo.Tour.ConjuntoTours;
 import Modelo.Tour.Tour;
 import Vista.Admin.IAdminTour;
+import Vista.Tour.IAgregarPI;
 import Vista.Tour.IConsultarTour;
 import Vista.Tour.ICrearTour;
 import Vista.Tour.IEliminarTour;
+import Vista.Tour.IModificarTour;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -120,7 +123,7 @@ public class Ctrl_AdminTours {
 		iConsultarTour.setVisible(true);
 	}
 	
-	//Abrir ventana de Consultar Tour desde Eliminar Tour o Modificar Tour
+	//Abrir ventana de Consultar Tour desde Eliminar Tour
 	public void eliminar() {
 		//Verificar que se haya seleccionado un tour
 		if(tourSeleccionado == null) {
@@ -160,10 +163,53 @@ public class Ctrl_AdminTours {
 	public boolean setTourSeleccionado(int index) {
 		if(index >= 0) {
 		        ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
-		        tourSeleccionado = conjuntoTours.getTour(index); 
+		        setTourSeleccionado(conjuntoTours.getTour(index)); 
 			return true; 
 		} else {
 			return false; 
 		}
+	}
+	
+	//Setear Tour Seleccionado
+	public void setTourSeleccionado(Tour t) {
+		tourSeleccionado = t; 
+	}
+	
+	//Abrir ventana de Modificar Tour
+	public void modificar() {
+		if(tourSeleccionado == null) {
+			//Incluir funcionamiento de consultar tour si no se ha
+			//seleccionado un tour
+			consultarTour(1);
+		} else {
+			IModificarTour iModificarTour = new IModificarTour(); 
+			iModificarTour.setLocationRelativeTo(null); 
+			iModificarTour.setResizable(false); 
+			
+			String[] coordenada = new String[1]; 
+			ArrayList<PuntoInteres> conjuntoPI; 
+			conjuntoPI = tourSeleccionado.getSecuenciaPI(); 
+			conjuntoPI.add(0, tourSeleccionado.getPuntoInicial());
+			
+			if(conjuntoPI.size() > 0) {
+				DefaultTableModel tblConjuntoPI; 
+				tblConjuntoPI = iModificarTour.getTblConjuntoPI(); 
+				for(PuntoInteres pi : conjuntoPI) {
+					coordenada[0] = ""+ pi.get_Coordenada() +""; 
+					tblConjuntoPI.addRow(coordenada); 
+				}
+			}
+			
+			iModificarTour.setVisible(true);
+		}
+	}
+	
+	//Abrir ventana de Agregar PI 
+	public void agregarPI() {
+		IAgregarPI iAgregarPI = new IAgregarPI(); 
+		iAgregarPI.setLocationRelativeTo(null); 
+		iAgregarPI.setResizable(false); 
+		
+		iAgregarPI.setVisible(true);
 	}
 }

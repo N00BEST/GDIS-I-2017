@@ -1,5 +1,7 @@
 package Vista.Tour;
 
+import javax.swing.table.DefaultTableModel;
+
 public class IModificarTour extends javax.swing.JFrame {
 
 	public IModificarTour() {
@@ -23,13 +25,10 @@ public class IModificarTour extends javax.swing.JFrame {
 
                 tblConjuntoPI.setModel(new javax.swing.table.DefaultTableModel(
                         new Object [][] {
-                                {null},
-                                {null},
-                                {null},
-                                {null}
+
                         },
                         new String [] {
-                                "Identificador"
+                                "Coordenada"
                         }
                 ));
                 jScrollPane2.setViewportView(tblConjuntoPI);
@@ -117,7 +116,11 @@ public class IModificarTour extends javax.swing.JFrame {
 			}
 		});
 	}
-
+	
+	public DefaultTableModel getTblConjuntoPI() {
+		return (DefaultTableModel) this.tblConjuntoPI.getModel(); 
+	}
+	
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JButton btnAgregarPI;
         private javax.swing.JButton btnCancelar;

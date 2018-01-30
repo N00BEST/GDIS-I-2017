@@ -117,6 +117,9 @@ public class IConsultarTour extends javax.swing.JFrame {
 				//Caso Modificar Tour
 				if(fila > -1) {
 					//Si se seleccionó un tour
+					this.dispose(); 
+					//Modificar tour
+					ctrlAdminTour.modificar();
 				} else {
 					//Si no, volver a Administrar Tours
 					ctrlAdminTour.adminTour();

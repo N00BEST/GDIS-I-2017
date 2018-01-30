@@ -30,6 +30,11 @@ public class ICrearTour extends javax.swing.JFrame {
                 jLabel2.setText("Nombre:");
 
                 btnAgregarPI.setText("Agregar Punto de Interés");
+                btnAgregarPI.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnAgregarPIActionPerformed(evt);
+                        }
+                });
 
                 btnConfirmar.setText("Confirmar");
                 btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +126,11 @@ public class ICrearTour extends javax.swing.JFrame {
 		        ctrlAdminTour.adminTour();
 		}
         }//GEN-LAST:event_btnConfirmarActionPerformed
+
+        private void btnAgregarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPIActionPerformed
+                Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance();
+		ctrlAdminTour.agregarPI();
+        }//GEN-LAST:event_btnAgregarPIActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
