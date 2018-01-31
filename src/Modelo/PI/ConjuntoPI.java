@@ -138,4 +138,7 @@ public class ConjuntoPI {
         return resultado;
     }
     
+    public ArrayList<PuntoInteres> getConjuntoPI(){
+	    return this.conjuntoPI; 
+    }
 }

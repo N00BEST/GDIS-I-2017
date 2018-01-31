@@ -129,7 +129,7 @@ public class ICrearTour extends javax.swing.JFrame {
 
         private void btnAgregarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPIActionPerformed
                 Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance();
-		ctrlAdminTour.agregarPI();
+		ctrlAdminTour.agregarPI(this);
         }//GEN-LAST:event_btnAgregarPIActionPerformed
 
 	public static void main(String args[]) {

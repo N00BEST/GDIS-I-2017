@@ -11,6 +11,7 @@ import Vista.Tour.IEliminarTour;
 import Vista.Tour.IModificarTour;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import Data.Data;
 
 public class Ctrl_AdminTours {
 	//Atributos
@@ -44,6 +45,7 @@ public class Ctrl_AdminTours {
 		iCrearTour.setLocationRelativeTo(null); 
 		iCrearTour.setResizable(false); 
 		iCrearTour.setVisible(true); 
+		tourSeleccionado = null; 
 	}
 	
 	//Verificar si existe identificador de tour
@@ -84,9 +86,15 @@ public class Ctrl_AdminTours {
 				ConjuntoTours conjuntoTours; 
 				conjuntoTours = ConjuntoTours.getInstance(); 
 				
-				Tour tour = new Tour(id, nombre); 
+				if(tourSeleccionado == null){
+				        Tour tour = new Tour(id, nombre); 
+				}
+				
+				Tour tourAux = tourSeleccionado; 
+				tourSeleccionado = null; 
+				
 				//Retorna si se pudo registrar el tour
-				return conjuntoTours.agregar(tour); 
+				return conjuntoTours.agregar(tourAux); 
 			}
 		}
 		
@@ -204,12 +212,176 @@ public class Ctrl_AdminTours {
 		}
 	}
 	
-	//Abrir ventana de Agregar PI 
-	public void agregarPI() {
+	//Abrir ventana de Agregar PI desde Crear Tour
+	public void agregarPI(ICrearTour iCrearTour) {
 		IAgregarPI iAgregarPI = new IAgregarPI(); 
 		iAgregarPI.setLocationRelativeTo(null); 
 		iAgregarPI.setResizable(false); 
 		
+		//Buscar los valores en los text fields
+		String id = iCrearTour.getIdentificador(); 
+		String nombre = iCrearTour.getNombre();
+		
+		if(id.isEmpty() || nombre.isEmpty()){
+			//Verifica que text field identificador no esté vacío
+			//O que text field nombre no esté vacío.
+			if(id.isEmpty()){
+				//Mensaje error si identificador vacío.
+				iCrearTour.desplegarMensaje("El identificador"
+				                            + " no puede estar"
+				                            + " vacío.");
+			} else {
+				//Mensaje error si nombre vacío.
+				iCrearTour.desplegarMensaje("El nombre no puede"
+				                            + " estar vacío.");
+			}
+		} else {
+			//En caso de que no estén vacíos.
+			if(existe(id)){
+				//Verifica si el identificador es único.
+				iCrearTour.desplegarMensaje("El identificador " 
+				                            + "existe.");
+			} else {
+				//Si el identificador es único y el nombre es válido
+				
+				tourSeleccionado = new Tour(id, nombre);
+				
+				//Agregar Puntos de interes disponibles a tabla
+				ArrayList<PuntoInteres> conjuntoDisponible = getPiDisponibles();
+				
+				String[] fila = new String[2];
+				
+				//Listar PI's disponibles
+				if(conjuntoDisponible.size() > 0) {
+					//Si hay PI's disponibles
+					DefaultTableModel tblConjuntoPi;
+					tblConjuntoPi = iAgregarPI.getTblConjuntoPi();
+					for(PuntoInteres pi : conjuntoDisponible){
+						fila[0] = "" + pi.get_Coordenada() + ""; 
+						fila[1] = pi.get_Ubicacion(); 
+						tblConjuntoPi.addRow(fila); 
+					}
+					iAgregarPI.desplegarMensaje(""); 
+				} else {
+					//Si no hay PI's disponibles
+					iAgregarPI.desplegarMensaje("No existen puntos de " +
+					                             "interés disponibles."); 
+				}
+		
+				iAgregarPI.setVisible(true);
+			}
+		}
+		
+	}
+	
+	//Abrir ventana de AgregarPI desde Modificar Tour
+	public void agregarPI(){
+		IAgregarPI iAgregarPI = new IAgregarPI(); 
+		iAgregarPI.setLocationRelativeTo(null); 
+		iAgregarPI.setResizable(false);
+		
+		//Agregar Puntos de interes disponibles a tabla
+		ArrayList<PuntoInteres> conjuntoDisponible = getPiDisponibles();
+		
+		String[] fila = new String[2];
+		
+		//Listar los PI's disponibles
+		if(conjuntoDisponible.size() > 0) {
+			//Si hay PI's disponibles
+			DefaultTableModel tblConjuntoPi;
+			tblConjuntoPi = iAgregarPI.getTblConjuntoPi();
+			for(PuntoInteres pi : conjuntoDisponible){
+				fila[0] = "" + pi.get_Coordenada() + ""; 
+				fila[1] = pi.get_Ubicacion(); 
+				tblConjuntoPi.addRow(fila); 
+			}
+			iAgregarPI.desplegarMensaje(""); 
+		} else {
+			//Si no hay PI's disponibles
+			iAgregarPI.desplegarMensaje("No existen puntos de " +
+			                             "interés disponibles."); 
+		}
+		
+		//Listar Secuencia PI del tour
+		if(tourSeleccionado.getSecuenciaPI() != null){
+			//Si tiene secuencia 
+			ArrayList<PuntoInteres> secuencia = new ArrayList();  
+			//Armar secuencia auxiliar con punto inicial y el resto 
+			//de la secuencia
+			secuencia.add(tourSeleccionado.getPuntoInicial());
+			secuencia = tourSeleccionado.getSecuenciaPI();
+			
+			//Indicar a iAgregarPI a qué secuencia agregar los PI's
+			iAgregarPI.setSecuencia(secuencia);
+			if(secuencia.size() > 0) {
+				DefaultTableModel tblSecuencia; 
+				tblSecuencia = iAgregarPI.getTblSecuencia(); 
+			        for(PuntoInteres pi : secuencia){
+			        	fila[0] = "" + pi.get_Coordenada() + ""; 
+			        	fila[1] = pi.get_Ubicacion(); 
+			        	tblSecuencia.addRow(fila); 
+			        }
+				iAgregarPI.calcularFilas();
+				iAgregarPI.calcularCmboxPosicion();
+		        }
+		}
+		
 		iAgregarPI.setVisible(true);
+	}
+	
+	//Agregar Secuencia de PI a tour seleccionado
+	public void agregarPI(boolean puntoInicial, ArrayList<PuntoInteres> Secuencia){
+		if(puntoInicial) {
+			//Si se agregó punto inicial a la secuencia
+			tourSeleccionado.setPuntoInicial(Secuencia.get(0));
+			//Eliminar punto de la secuencia para no duplicarlo
+			Secuencia.remove(0); 
+		} else {
+			//Si no se agregó punto inicial a la secuencia, se 
+			//actualiza en tour
+			tourSeleccionado.setPuntoInicial(null);
+		}
+		
+		//Agregar secuencia al tour
+		tourSeleccionado.setSecuenciaPI(Secuencia); 
+		
+		//Determinar disponibilidad del tour
+		tourSeleccionado.setDisponibilidad(determinarDisponibilidad()); 
+	}
+	
+	//Crear subconjunto de PI's con disponibilidad S o N
+	public ArrayList<PuntoInteres> getPiDisponibles() {
+		ArrayList<PuntoInteres> piDisponibles = new ArrayList(); 
+		ArrayList<PuntoInteres> conjuntoPI = Data.conjuntoPI.getConjuntoPI();
+		
+		//Lista los PI's en conjuntoPI disponibles y los guarda en piDisponibles
+		conjuntoPI.stream().filter((pi) -> (pi.get_Disponibilidad() == 'S' || 
+		    pi.get_Disponibilidad() == 'N')).forEachOrdered((pi) -> {
+			    piDisponibles.add(pi);
+		});
+		
+		return piDisponibles; 
+	}
+	
+	//Determinar la disponibilidad de un tour
+	public String determinarDisponibilidad() {
+		String disponibilidad = "S"; 
+		int disponibles = 0; 
+		ArrayList<PuntoInteres> secuencia = tourSeleccionado.getSecuenciaPI();
+		
+		//Contar cuántos PI's hay disponibles.
+		for(PuntoInteres pi : secuencia) {
+			if(pi.get_Disponibilidad() == 'S'){
+				disponibles++; 
+			}
+		}
+		
+		if(tourSeleccionado.getPuntoInicial() == null ||
+		   tourSeleccionado.getSecuenciaPI().size() < 2 ||
+		   disponibles < 2) {
+			disponibilidad = "N"; 
+		}
+		
+		return disponibilidad; 
 	}
 }

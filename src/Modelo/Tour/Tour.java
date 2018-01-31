@@ -15,11 +15,15 @@ public class Tour {
 		this.Nombre = nombre; 
 		this.Disponibilidad = "N"; 
 		this.PuntoInicial = null; 
-		this.SecuenciaPI = new ArrayList(); 
+		this.SecuenciaPI = null; 
 	}
 	
 	public String getDisponibilidad(){
 		return this.Disponibilidad; 
+	}
+	
+	public void setDisponibilidad(String disponibilidad){
+		this.Disponibilidad = disponibilidad; 
 	}
 	
 	public ArrayList<PuntoInteres> getSecuenciaPI() {
@@ -63,5 +67,13 @@ public class Tour {
 
 	public void setNombre(String nombre) {
 		this.Nombre = nombre; 
+	}
+	
+	public void setPuntoInicial(PuntoInteres puntoInicial) {
+		this.PuntoInicial = puntoInicial; 
+	}
+	
+	public void setSecuenciaPI(ArrayList<PuntoInteres> secuencia) {
+		this.SecuenciaPI = secuencia; 
 	}
 }
