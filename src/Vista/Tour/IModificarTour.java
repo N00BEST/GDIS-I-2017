@@ -1,5 +1,6 @@
 package Vista.Tour;
 
+import Controlador.Ctrl_AdminTours;
 import javax.swing.table.DefaultTableModel;
 
 public class IModificarTour extends javax.swing.JFrame {
@@ -34,12 +35,27 @@ public class IModificarTour extends javax.swing.JFrame {
                 jScrollPane2.setViewportView(tblConjuntoPI);
 
                 btnCancelar.setText("Cancelar");
+                btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnCancelarActionPerformed(evt);
+                        }
+                });
 
                 btnConfirmar.setText("Confirmar");
 
                 btnEliminarPI.setText("Eliminar PI");
+                btnEliminarPI.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnEliminarPIActionPerformed(evt);
+                        }
+                });
 
                 btnAgregarPI.setText("Agregar PI");
+                btnAgregarPI.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnAgregarPIActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
@@ -84,6 +100,22 @@ public class IModificarTour extends javax.swing.JFrame {
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents
+
+        private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		ctrlAdminTours.Volver(this);
+        }//GEN-LAST:event_btnCancelarActionPerformed
+
+        private void btnAgregarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPIActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance();
+		ctrlAdminTours.agregarPI();
+        }//GEN-LAST:event_btnAgregarPIActionPerformed
+
+        private void btnEliminarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPIActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		
+		ctrlAdminTours.eliminarPI(); 
+        }//GEN-LAST:event_btnEliminarPIActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */

@@ -73,15 +73,15 @@ public class ConjuntoPI {
     
     public ArrayList<String[]> consultar(String ubicacion) {
         ArrayList<String[]> lista = new ArrayList();
-        
-        for(PuntoInteres pi: conjuntoPI){
-            if(pi.get_Ubicacion().equals(ubicacion)) {
-                String dataFila[] = new String[3];
-                dataFila[0] = pi.get_Coordenada() + "";
-                dataFila[1] = pi.get_Disponibilidad() + "";
-                dataFila[2] = pi.get_ObrasAsociadasString();
-                lista.add(dataFila);
-            }
+	
+	for(PuntoInteres pi: conjuntoPI){
+	       	if(pi.get_Ubicacion().equals(ubicacion)) {
+	               	String dataFila[] = new String[3];
+	               	dataFila[0] = pi.get_Coordenada() + "";
+	               	dataFila[1] = pi.get_Disponibilidad() + "";
+	               	dataFila[2] = pi.get_ObrasAsociadasString();
+	               	lista.add(dataFila);
+		}
         }
         System.out.println("CARD(lista)=" + lista.size());
         return lista;
@@ -138,4 +138,7 @@ public class ConjuntoPI {
         return resultado;
     }
     
+    public ArrayList<PuntoInteres> getConjuntoPI() {
+	    return this.conjuntoPI; 
+    }
 }

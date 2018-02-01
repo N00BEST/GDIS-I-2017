@@ -113,23 +113,21 @@ public class ICrearTour extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-                Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance(); 
-		this.dispose(); 
-		ctrlAdminTour.adminTour();
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		ctrlAdminTours.Volver(this);
         }//GEN-LAST:event_btnCancelarActionPerformed
 
         private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
                 Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance(); 
 		if(ctrlAdminTour.registrarTour(this)){
 			//Verifica si se pudo registrar el tour
-		        this.dispose(); 
-		        ctrlAdminTour.adminTour();
+		        ctrlAdminTour.Volver(this);
 		}
         }//GEN-LAST:event_btnConfirmarActionPerformed
 
         private void btnAgregarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPIActionPerformed
                 Ctrl_AdminTours ctrlAdminTour = Ctrl_AdminTours.getInstance();
-		ctrlAdminTour.agregarPI();
+		ctrlAdminTour.agregarPI(this);
         }//GEN-LAST:event_btnAgregarPIActionPerformed
 
 	public static void main(String args[]) {
@@ -174,11 +172,6 @@ public class ICrearTour extends javax.swing.JFrame {
 	
 	public String getNombre() {
 		return this.txtNombre.getText(); 
-	}
-	
-	public void habilitarBtn(boolean b) {
-		this.btnAgregarPI.setEnabled(b);
-		this.btnConfirmar.setEnabled(b);
 	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables

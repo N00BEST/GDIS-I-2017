@@ -22,8 +22,16 @@ public class Tour {
 		return this.Disponibilidad; 
 	}
 	
+	public void setDisponibilidad(String disponibilidad){
+		this.Disponibilidad = disponibilidad; 
+	}
+	
 	public ArrayList<PuntoInteres> getSecuenciaPI() {
 		return this.SecuenciaPI; 
+	}
+	
+	public void setSecuenciaPI(ArrayList<PuntoInteres> secuencia) {
+		this.SecuenciaPI = secuencia; 
 	}
 	
 	public void AgregarPI(PuntoInteres PI, char posicion){
@@ -47,6 +55,10 @@ public class Tour {
 		
 	public PuntoInteres getPuntoInicial() {
 		return this.PuntoInicial; 
+	}
+	
+	public void setPuntoInicial(PuntoInteres punto){
+		this.PuntoInicial = punto;
 	}
 	
 	public String getIdentificador(){

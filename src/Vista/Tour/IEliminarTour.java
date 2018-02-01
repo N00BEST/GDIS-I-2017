@@ -30,6 +30,11 @@ public class IEliminarTour extends javax.swing.JFrame {
                 });
 
                 btnNo.setText("No");
+                btnNo.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnNoActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -67,6 +72,11 @@ public class IEliminarTour extends javax.swing.JFrame {
 		//Regresa a Administrar Tours
 		ctrlAdminTours.adminTour();
         }//GEN-LAST:event_btnSiActionPerformed
+
+        private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		ctrlAdminTours.Volver(this);
+        }//GEN-LAST:event_btnNoActionPerformed
 	
 	public void setTour(Tour tour) {
 		this.tour = tour; 

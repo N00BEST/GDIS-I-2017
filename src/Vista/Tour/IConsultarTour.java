@@ -103,14 +103,14 @@ public class IConsultarTour extends javax.swing.JFrame {
 		//Guarda la fila seleccionada. -1 si no se selecciona ninguna
 		int fila = tblTours.getSelectedRow();
 		
-		ctrlAdminTour.setTourSeleccionado(fila); 
+		ctrlAdminTour.TourSeleccionado(fila); 
 		//Verifica si se viene desde el Modificar Tour, Eliminar Tour o
 		//Consultar Tour
 		switch(this.Continuar) {
 			case 0: 
 				//Caso Consultar Tour
-				ctrlAdminTour.adminTour();
-				this.dispose();
+				Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		                ctrlAdminTours.Volver(this);
 				break; 
 				
 			case 1: 
