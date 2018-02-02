@@ -7,10 +7,19 @@ import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 public class IAgregarPI extends javax.swing.JFrame {
+	
+	private IModificarTour iModificarTour; 
 
 	public IAgregarPI() {
 		initComponents();
 		this.setTitle("COPRED - Agregar Punto de Interés"); 
+		iModificarTour = null; 
+	}
+	
+	public IAgregarPI(IModificarTour interfaz) {
+		initComponents(); 
+		this.setTitle("COPRED - Agregar Punto de Interés"); 
+		this.iModificarTour = interfaz; 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -282,6 +291,9 @@ public class IAgregarPI extends javax.swing.JFrame {
 
         private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		if(iModificarTour != null) {
+			ctrlAdminTours.desplegar(iModificarTour.getTblConjuntoPI()); 
+		}
 		ctrlAdminTours.registrarSecuencia(this); 
         }//GEN-LAST:event_btnConfirmarActionPerformed
 	

@@ -5,10 +5,19 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class IEliminarPI extends javax.swing.JFrame {
+	
+	private IModificarTour iModificarTour; 
 
 	public IEliminarPI() {
 		initComponents();
 		this.setTitle("COPRED - Eliminar Punto de Interés");
+		iModificarTour = null; 
+	}
+	
+	public IEliminarPI(IModificarTour interfaz) {
+		initComponents(); 
+		this.setTitle("COPRED - Eliminar Punto de Interés"); 
+		iModificarTour = interfaz; 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -115,6 +124,12 @@ public class IEliminarPI extends javax.swing.JFrame {
         private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
 		ctrlAdminTours.eliminarPI(this); 
+		if(iModificarTour != null) {
+			ctrlAdminTours.desplegar(iModificarTour.getTblConjuntoPI()); 
+		}
+		if(ctrlAdminTours.registrarSecuencia()){
+			this.dispose(); 
+		}
         }//GEN-LAST:event_btnConfirmarActionPerformed
 
         private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

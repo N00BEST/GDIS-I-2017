@@ -121,13 +121,13 @@ public class IModificarTour extends javax.swing.JFrame {
 
         private void btnAgregarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPIActionPerformed
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance();
-		ctrlAdminTours.agregarPI();
+		ctrlAdminTours.agregarPI(this);
         }//GEN-LAST:event_btnAgregarPIActionPerformed
 
         private void btnEliminarPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPIActionPerformed
                 Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
 		
-		ctrlAdminTours.eliminarPI(); 
+		ctrlAdminTours.eliminarPI(this); 
         }//GEN-LAST:event_btnEliminarPIActionPerformed
 
         private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed

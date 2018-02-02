@@ -13,7 +13,7 @@ public class Tour {
 	public Tour(String id, String nombre) {
 		this.Identificador = id; 
 		this.Nombre = nombre; 
-		this.Disponibilidad = "S"; 
+		this.Disponibilidad = "N"; 
 		this.PuntoInicial = null; 
 		this.SecuenciaPI = new ArrayList(); 
 	}
@@ -32,25 +32,6 @@ public class Tour {
 	
 	public void setSecuenciaPI(ArrayList<PuntoInteres> secuencia) {
 		this.SecuenciaPI = secuencia; 
-	}
-	
-	public void AgregarPI(PuntoInteres PI, char posicion){
-		switch (posicion) {
-			case 'I': 
-				//¿Reemplazar el punto inicial o desplazarlo a
-				//la segunda posición?
-				this.SecuenciaPI.add(0, this.PuntoInicial); 
-				this.PuntoInicial = PI; 
-				break; 
-			
-			case 'M': 
-				
-				break; 
-				
-			case 'F': 
-				
-				break; 
-		}
 	}
 		
 	public PuntoInteres getPuntoInicial() {
