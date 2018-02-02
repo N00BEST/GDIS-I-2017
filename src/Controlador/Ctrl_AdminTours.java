@@ -22,7 +22,7 @@ public class Ctrl_AdminTours {
 	private static Ctrl_AdminTours uniqueCtrlAdminTours = null; 
 	private static Tour tourSeleccionado = null; 
 	private static ArrayList<PuntoInteres> nuevaSecuencia = null; 
-	private static boolean tienePuntoInicial = false; 
+	private static PuntoInteres puntoInicial = null; 
 	
 	//Métodos 
 	//Constructor
@@ -187,28 +187,21 @@ public class Ctrl_AdminTours {
 			iModificarTour.setResizable(false); 
 			
 			//Verificar si el tour tiene secuenciaPI
-			if(tourSeleccionado.getSecuenciaPI() != null ||
-			   tourSeleccionado.getPuntoInicial() != null) {
-				ArrayList<PuntoInteres> secuenciaPI = tourSeleccionado.getSecuenciaPI(); 
-		
-				if(tourSeleccionado.getPuntoInicial() != null) {
-					if(secuenciaPI == null) {
-					         secuenciaPI = new ArrayList(); 
-					}
-					
-					secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
-					tienePuntoInicial = true; 
-				} else {
-					tienePuntoInicial = false; 
-				}
-				
-				if(secuenciaPI != null && secuenciaPI.size() > 0){
-				nuevaSecuencia = secuenciaPI; 
-				
-				desplegar(iModificarTour.getTblConjuntoPI());
-		}
+			if(tourSeleccionado.getSecuenciaPI() != null) {
+				nuevaSecuencia = tourSeleccionado.getSecuenciaPI();
+			} else {
+				nuevaSecuencia = null; 
 			}
 			
+			if(tourSeleccionado.getPuntoInicial() != null) {
+				puntoInicial = tourSeleccionado.getPuntoInicial(); 
+			} else {
+				puntoInicial = null; 
+			}
+			
+			desplegar(iModificarTour.getTblConjuntoPI());
+			
+			puntoInicial = null; 
 			nuevaSecuencia = null; 
 			
 			iModificarTour.setVisible(true);
@@ -246,14 +239,9 @@ public class Ctrl_AdminTours {
 		ArrayList<PuntoInteres> secuenciaPI = tourSeleccionado.getSecuenciaPI(); 
 		
 		if(tourSeleccionado.getPuntoInicial() != null) {
-			if(secuenciaPI == null) {
-			         secuenciaPI = new ArrayList(); 
-			}
-			
-			secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
-			tienePuntoInicial = true; 
+			 puntoInicial = tourSeleccionado.getPuntoInicial();
 		} else {
-			tienePuntoInicial = false; 
+			puntoInicial = null; 
 		}
 		
 		String[] fila; 
@@ -286,57 +274,77 @@ public class Ctrl_AdminTours {
 		iAgregarPI.setVisible(true);
 	}
 	
-	//Agregar punto de interes a la secuencia PI
+	//Validar y agregar PI a la secuencia PI temporal
 	public boolean agregarPI(int coordenada, IAgregarPI iAgregarPI){
 		//Buscar punto de interés a agregar
 		PuntoInteres pi = Data.conjuntoPI.getPI(coordenada); 
-		if(!nuevaSecuencia.contains(pi)){
-			//Si no está ya agregado a la secuencia
-			
-			//Buscar si el punto es inicial, intermedio o final
-			int punto = iAgregarPI.getTipoDePunto();
+		int punto = iAgregarPI.getTipoDePunto();
+		//Buscar si el punto es inicial, intermedio o final
+		if(puntoInicial == null && nuevaSecuencia.size() == 0) {
+			//Si no se ha agregado ningún pi
+			agregarPI(pi, punto, iAgregarPI); 
+			return true; 
+		} else if (nuevaSecuencia.size() == 0) {
+			//Si el punto inicial no es nulo, se verifica que nuevo punto
+			//a agregar no sea el ya agregado como punto inicial
+			if(puntoInicial.get_Coordenada() != pi.get_Coordenada()){
+				agregarPI(pi, punto, iAgregarPI); 
+				return true; 
+			}
+		} else if(puntoInicial == null) {
+			//Si la secuencia es nula, se verifica si contiene el nuevo
+			//punto a agregar. 
+			if(!nuevaSecuencia.contains(pi)){
+				agregarPI(pi, punto, iAgregarPI); 
+				return true; 
+			}
+		} else {
+			//Si el recorrido temporal tiene punto inicial y tiene secuencia
+			//se verifica que el punto a agregar no pertenezca ya a ese recorrido
+			if(puntoInicial.get_Coordenada() != pi.get_Coordenada() &&
+			   !nuevaSecuencia.contains(pi)){
+				agregarPI(pi, punto, iAgregarPI); 
+				return true; 
+			}
+		}		
+		
+		iAgregarPI.desplegarMensaje("El punto ya fue añadido a la secuencia.");		
+		//Si llega a este punto, no pudo agregar el PI
+		return false; 
+	}
+	
+	//Agregar PI al recorrido temporal del tour
+	public void agregarPI(PuntoInteres pi, int punto, IAgregarPI iAgregarPI){
+		if(punto == 0) {
+			if(puntoInicial != null) {
+				nuevaSecuencia.add(0, puntoInicial); 
+			}
+			puntoInicial = pi; 
+		} else {
 			int posicion; 
 
 			switch (punto) {
-				case 0: 
-					//Si es inicial, agregar al inicio
-					posicion = 0; 
-					tienePuntoInicial = true; 
-					break; 
-				
+				//Caso punto intermedio
 				case 1: 
-					//Si es intermedio
-					if(nuevaSecuencia.size() > 0) {
-						//Buscar la posición en la cual 
-						//se va a agregar
-						posicion = iAgregarPI.getCmboxPosicionValor() - 1;
-					} else {
-						//Si está vacío agregarlo de primero
-						posicion = 0; 
-					}
+					//Buscar la posición en la cual 
+					//se va a agregar
+					posicion = iAgregarPI.getCmboxPosicionValor() - 2;
 					break; 
-				
+			
 				default: 
 					//Si es final, se agrega de último
 					posicion = nuevaSecuencia.size(); 
 			}
-			iAgregarPI.desplegarMensaje("");
-		        nuevaSecuencia.add(posicion, pi);
-			
-			//Actualizar tabla secuencia
-			desplegar(iAgregarPI.getTblSecuencia()); 
-			//Actualizar combo box
-			actualizarPosicion(iAgregarPI);
-			
-			iAgregarPI.btnQuitarEnabled(true);
-			
-			return true; 
-		} else {
-			iAgregarPI.desplegarMensaje("El punto ya fue añadido a la secuencia.");
+		  	nuevaSecuencia.add(posicion, pi);
 		}
-		
-		//Si llega a este punto, no pudo agregar el PI
-		return false; 
+			
+		iAgregarPI.desplegarMensaje("");
+		//Actualizar tabla secuencia
+		desplegar(iAgregarPI.getTblSecuencia()); 
+		//Actualizar combo box
+		actualizarPosicion(iAgregarPI);
+		//Activar boton quitar
+		iAgregarPI.btnQuitarEnabled(true);
 	}
 	
 	//Quitar punto de interés a la secuencia PI en interfaz IAgregarPI
@@ -344,17 +352,16 @@ public class Ctrl_AdminTours {
 		//Buscar punto de interés a quitar
 		PuntoInteres pi = Data.conjuntoPI.getPI(coordenada);
 		
-		System.out.println("Coordenada a quitar: " + pi.get_Coordenada());
-		
 		if(!tourSeleccionado.contiene(pi)){
-			if(nuevaSecuencia.indexOf(pi) == 0 && tienePuntoInicial) {
-				tienePuntoInicial = false; 
+			if(puntoInicial == pi) {
+				puntoInicial = null;  
+				iAgregarPI.getTblSecuencia().removeRow(0); 
+			} else {
+				iAgregarPI.getTblSecuencia().removeRow(nuevaSecuencia.indexOf(pi));
+				nuevaSecuencia.remove(pi);
 			}
 			
-			iAgregarPI.getTblSecuencia().removeRow(nuevaSecuencia.indexOf(pi));
-			nuevaSecuencia.remove(pi); 
-			
-			if(nuevaSecuencia.size() == 0){
+			if(nuevaSecuencia.size() == 0 && puntoInicial == null){
 				iAgregarPI.btnQuitarEnabled(false); 
 			}
 			
@@ -382,18 +389,16 @@ public class Ctrl_AdminTours {
 		
 		if(tourSeleccionado != null) {
 			
-			if(tienePuntoInicial){
-				tourSeleccionado.setPuntoInicial(nuevaSecuencia.get(0));
-				nuevaSecuencia.remove(0);
-				tienePuntoInicial = false; 
-			}
+			tourSeleccionado.setPuntoInicial(puntoInicial);  
 			
-			if(nuevaSecuencia.size() == 0) {
+			if(nuevaSecuencia != null && nuevaSecuencia.size() == 0) {
 				nuevaSecuencia = null; 
 			}
 			tourSeleccionado.setSecuenciaPI(nuevaSecuencia); 
 			tourSeleccionado.setDisponibilidad(determinarDisponibilidad());
-			tienePuntoInicial = false; 
+			
+			puntoInicial = null;
+			nuevaSecuencia = null; 
 			return true; 
 		}
 		
@@ -449,37 +454,32 @@ public class Ctrl_AdminTours {
 	
 	//Actualizar la secuencia mostrada en la tabla Secuencia de IAgregarPI
 	private void desplegar(DefaultTableModel tblSecuencia) {
-		if(nuevaSecuencia.size() > 0) {
-			System.out.println("CARD(secuencia) = " + nuevaSecuencia.size());
+		//Vaciar tabla Secuencia
+		tblSecuencia.setRowCount(0);
+		//fila para añadir a tabla
+		String[] fila = new String[3]; 
+		if(puntoInicial != null) {
+			//Si hay punto inicial que agregar
+			fila[0] = "I"; 
+			fila[1] = puntoInicial.get_Coordenada() + ""; 
+			fila[2] = puntoInicial.get_Ubicacion(); 
+			tblSecuencia.addRow(fila); 
+		}
+		if(nuevaSecuencia != null && nuevaSecuencia.size() > 0) {
 			//Si hay puntos que agregar
-			//Vaciar tabla Secuencia
-			tblSecuencia.setRowCount(0); 
-			
-			//fila para añadir a tabla
-			String[] fila = new String[3]; 
-			
 			//auxiliares para ciclos for
-			int inicio = 0;
-			int num = 0; 
 			
-			if(tienePuntoInicial) {
-				fila[0] = "I"; 
-				fila[1] = nuevaSecuencia.get(0).get_Coordenada()+""; 
-				fila[2] = nuevaSecuencia.get(0).get_Ubicacion(); 
-				tblSecuencia.addRow(fila);
-				inicio = 1; 
-			}
-			
-			for(int i = inicio; i < nuevaSecuencia.size(); i++){
-				fila[0] = "" + (num+2); 
+			for(int i = 0; i < nuevaSecuencia.size(); i++){
+				fila[0] = "" + (i+2); 
 				fila[1] = nuevaSecuencia.get(i).get_Coordenada()+""; 
 				fila[2] = nuevaSecuencia.get(i).get_Ubicacion(); 
-				tblSecuencia.addRow(fila);
-				num++; 
+				tblSecuencia.addRow(fila); 
 			}
 			
-			if(!tienePuntoInicial || nuevaSecuencia.size() > 1) {
-				tblSecuencia.setValueAt("F", nuevaSecuencia.size() -1, 0);
+			if(puntoInicial == null) {
+				tblSecuencia.setValueAt("F", nuevaSecuencia.size() - 1, 0);
+			} else {
+				tblSecuencia.setValueAt("F", nuevaSecuencia.size(), 0); 
 			}
 			
 		}
@@ -493,10 +493,15 @@ public class Ctrl_AdminTours {
 		//Vaciar combo box
 		cmboxPosicion.removeAllItems();
 		
-		cmboxPosicion.addItem("2");
+		int inicio = 0; 
+			
+		if(puntoInicial != null) {
+			inicio = 1; 
+			cmboxPosicion.addItem("2");
+		}
 		
 		if(nuevaSecuencia != null) {
-			for(int i = 1; i < nuevaSecuencia.size(); i++){
+			for(int i = inicio; i < nuevaSecuencia.size(); i++){
 				cmboxPosicion.addItem((i + 2) + "");
 			}
 		}
@@ -540,22 +545,17 @@ public class Ctrl_AdminTours {
 		iEliminarPI.setLocationRelativeTo(null); 
 		
 		ArrayList<PuntoInteres> secuenciaPI = tourSeleccionado.getSecuenciaPI(); 
-		System.out.println("linea 543 CARD(secuencia) = " + tourSeleccionado.getSecuenciaPI().size());
 		if(tourSeleccionado.getPuntoInicial() != null) {
-			if(secuenciaPI == null) {
-			         secuenciaPI = new ArrayList(); 
-			}
-			
-			secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
-			tienePuntoInicial = true; 
+			puntoInicial = tourSeleccionado.getPuntoInicial(); 
 		} else {
-			tienePuntoInicial = false; 
+			puntoInicial = null; 
 		}
-		System.out.println("linea 554 CARD(secuencia) = " + tourSeleccionado.getSecuenciaPI().size());
 		if(secuenciaPI != null && secuenciaPI.size() > 0){
 			nuevaSecuencia = secuenciaPI; 
 			
 			desplegar(iEliminarPI.getTblSubconjuntoPI());
+		} else {
+			nuevaSecuencia = null; 
 		}
 		
 		iEliminarPI.setVisible(true); 
@@ -568,10 +568,15 @@ public class Ctrl_AdminTours {
 		int[] seleccion = tblSubconjuntoPI.getSelectedRows();
 		
 		if(seleccion.length > 0) {
-			for(int i = 0; i < seleccion.length; i++) {
-				nuevaSecuencia.remove(seleccion[i]); 
-				if(seleccion[i] == 0 && tienePuntoInicial){
-					tienePuntoInicial = false; 
+			for(int i = seleccion.length-1; i >= 0; i--) {
+				if(puntoInicial != null){
+					if(seleccion[i] == 0){
+						puntoInicial = null; 
+					} else {
+						nuevaSecuencia.remove(seleccion[i] - 1); 
+					}
+				} else {
+					nuevaSecuencia.remove(seleccion[i]); 
 				}
 			}
 		}
