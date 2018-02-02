@@ -187,26 +187,29 @@ public class Ctrl_AdminTours {
 			iModificarTour.setResizable(false); 
 			
 			//Verificar si el tour tiene secuenciaPI
-			if(tourSeleccionado.getSecuenciaPI() != null) {
-				//Si la tiene, imprimir en la tabla dicha secuencia en orden
-				String[] coordenada = new String[1]; 
-				ArrayList<PuntoInteres> conjuntoPI; 
-				conjuntoPI = tourSeleccionado.getSecuenciaPI(); 
-				
+			if(tourSeleccionado.getSecuenciaPI() != null ||
+			   tourSeleccionado.getPuntoInicial() != null) {
+				ArrayList<PuntoInteres> secuenciaPI = tourSeleccionado.getSecuenciaPI(); 
+		
 				if(tourSeleccionado.getPuntoInicial() != null) {
-					//Agregar punto inicial a la secuencia
-					conjuntoPI.add(0, tourSeleccionado.getPuntoInicial());
-				}
-				if(conjuntoPI.size() > 0) {
-					//Llenar tabla.
-					DefaultTableModel tblConjuntoPI; 
-					tblConjuntoPI = iModificarTour.getTblConjuntoPI(); 
-					for(PuntoInteres pi : conjuntoPI) {
-						coordenada[0] = ""+ pi.get_Coordenada() +""; 
-						tblConjuntoPI.addRow(coordenada); 
+					if(secuenciaPI == null) {
+					         secuenciaPI = new ArrayList(); 
 					}
+					
+					secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
+					tienePuntoInicial = true; 
+				} else {
+					tienePuntoInicial = false; 
 				}
+				
+				if(secuenciaPI != null && secuenciaPI.size() > 0){
+				nuevaSecuencia = secuenciaPI; 
+				
+				desplegar(iModificarTour.getTblConjuntoPI());
+		}
 			}
+			
+			nuevaSecuencia = null; 
 			
 			iModificarTour.setVisible(true);
 		}
@@ -247,11 +250,7 @@ public class Ctrl_AdminTours {
 			         secuenciaPI = new ArrayList(); 
 			}
 			
-			System.out.println("linea 250 CARD(SecuenciaPI) = " + secuenciaPI.size());
-			
 			secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
-			
-			System.out.println("linea 254 CARD(SecuenciaPI) = " + secuenciaPI.size());
 			tienePuntoInicial = true; 
 		} else {
 			tienePuntoInicial = false; 
@@ -276,8 +275,6 @@ public class Ctrl_AdminTours {
 			iAgregarPI.desplegarMensaje("No existen puntos de interés disponibles");
 		}
 		
-		System.out.println("linea 279 CARD(SecuenciaPI) = " + secuenciaPI.size());
-		
 		if(secuenciaPI != null && secuenciaPI.size() > 0){
 			nuevaSecuencia = secuenciaPI; 
 			
@@ -285,9 +282,7 @@ public class Ctrl_AdminTours {
 			actualizarPosicion(iAgregarPI);
 		} else {
 			nuevaSecuencia = new ArrayList();
-		}
-		
-		System.out.println("linea 290 CARD(SecuenciaPI) = " + nuevaSecuencia.size());		
+		}		
 		iAgregarPI.setVisible(true);
 	}
 	
@@ -455,6 +450,7 @@ public class Ctrl_AdminTours {
 	//Actualizar la secuencia mostrada en la tabla Secuencia de IAgregarPI
 	private void desplegar(DefaultTableModel tblSecuencia) {
 		if(nuevaSecuencia.size() > 0) {
+			System.out.println("CARD(secuencia) = " + nuevaSecuencia.size());
 			//Si hay puntos que agregar
 			//Vaciar tabla Secuencia
 			tblSecuencia.setRowCount(0); 
@@ -540,19 +536,26 @@ public class Ctrl_AdminTours {
 	//Abrir ventana de IEliminarPI
 	public void eliminarPI(){
 		IEliminarPI iEliminarPI = new IEliminarPI(); 
-		iEliminarPI.setLocationRelativeTo(null); 
 		iEliminarPI.setResizable(false); 
+		iEliminarPI.setLocationRelativeTo(null); 
 		
-		nuevaSecuencia = tourSeleccionado.getSecuenciaPI();
-		if(tourSeleccionado.getPuntoInicial() != null){
-			nuevaSecuencia.add(0, tourSeleccionado.getPuntoInicial());
-			tienePuntoInicial = true;
+		ArrayList<PuntoInteres> secuenciaPI = tourSeleccionado.getSecuenciaPI(); 
+		System.out.println("linea 543 CARD(secuencia) = " + tourSeleccionado.getSecuenciaPI().size());
+		if(tourSeleccionado.getPuntoInicial() != null) {
+			if(secuenciaPI == null) {
+			         secuenciaPI = new ArrayList(); 
+			}
+			
+			secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
+			tienePuntoInicial = true; 
 		} else {
-			tienePuntoInicial = false;
+			tienePuntoInicial = false; 
 		}
-		
-		if(nuevaSecuencia != null) {
-			desplegar(iEliminarPI.getTblSubconjuntoPI()); 
+		System.out.println("linea 554 CARD(secuencia) = " + tourSeleccionado.getSecuenciaPI().size());
+		if(secuenciaPI != null && secuenciaPI.size() > 0){
+			nuevaSecuencia = secuenciaPI; 
+			
+			desplegar(iEliminarPI.getTblSubconjuntoPI());
 		}
 		
 		iEliminarPI.setVisible(true); 
@@ -560,36 +563,37 @@ public class Ctrl_AdminTours {
 	
 	//Eliminar puntos de interés 
 	public void eliminarPI(IEliminarPI iEliminarPI) {
-		JTable tblSubconjuntoPI = iEliminarPI.getTable();
+		JTable tblSubconjuntoPI = iEliminarPI.getTable(); 
 		
-		//Retorna arreglo con los índices de todas las filas seleccionadas.
-		//Si no se ha seleccionado nada, retorna un arreglo vacío.
 		int[] seleccion = tblSubconjuntoPI.getSelectedRows();
 		
-		if(seleccion.length > 0){
-			//Si el arreglo no está vacío.
-			int inicio = 0; 
-			
-			if(tienePuntoInicial && seleccion[0] == 0){
-				nuevaSecuencia.remove(0); 
-				tienePuntoInicial = false; 
-				inicio = 1; 
+		if(seleccion.length > 0) {
+			for(int i = 0; i < seleccion.length; i++) {
+				nuevaSecuencia.remove(seleccion[i]); 
+				if(seleccion[i] == 0 && tienePuntoInicial){
+					tienePuntoInicial = false; 
+				}
 			}
-			
-			for(int i = inicio; i < seleccion.length; i++) {
-				nuevaSecuencia.remove(seleccion[i]);
-			}
-			
-			registrarSecuencia(); 
 		}
 		
-		iEliminarPI.dispose();
+		if(registrarSecuencia()){
+			iEliminarPI.dispose(); 
+		} 
 	}
 	
 	//Cancelar agregar o eliminar PI
 	public void cancelar(JFrame interfaz) {
-		System.out.println("en Cancelar CARD(SecuenciaPI) = " + nuevaSecuencia.size());
 		nuevaSecuencia = null; 
 		interfaz.dispose(); 
+	}
+	
+	//Guardar cambios en modificar Tour
+	public void guardarCambios(JFrame interfaz){
+		ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
+		
+		conjuntoTours.setTour(conjuntoTours.getIndex(tourSeleccionado.getIdentificador()), tourSeleccionado); 
+		
+		interfaz.dispose(); 
+		adminTour(); 
 	}
 }

@@ -29,9 +29,17 @@ public class IModificarTour extends javax.swing.JFrame {
 
                         },
                         new String [] {
-                                "Coordenada"
+                                "Posición", "Coordenada", "Ubicación"
                         }
-                ));
+                ) {
+                        boolean[] canEdit = new boolean [] {
+                                false, false, false
+                        };
+
+                        public boolean isCellEditable(int rowIndex, int columnIndex) {
+                                return canEdit [columnIndex];
+                        }
+                });
                 jScrollPane2.setViewportView(tblConjuntoPI);
 
                 btnCancelar.setText("Cancelar");
@@ -42,6 +50,11 @@ public class IModificarTour extends javax.swing.JFrame {
                 });
 
                 btnConfirmar.setText("Confirmar");
+                btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnConfirmarActionPerformed(evt);
+                        }
+                });
 
                 btnEliminarPI.setText("Eliminar PI");
                 btnEliminarPI.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +129,11 @@ public class IModificarTour extends javax.swing.JFrame {
 		
 		ctrlAdminTours.eliminarPI(); 
         }//GEN-LAST:event_btnEliminarPIActionPerformed
+
+        private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+                Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
+		ctrlAdminTours.guardarCambios(this); 
+        }//GEN-LAST:event_btnConfirmarActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */

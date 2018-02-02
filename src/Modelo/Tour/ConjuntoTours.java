@@ -53,4 +53,35 @@ public class ConjuntoTours {
 	public Tour getTour(int index) {
 		return conjuntoTours.get(index); 
 	}
+	
+	//Devolver el tour con identificador
+	public Tour getTour(String id){
+		Tour retorno = null; 
+		
+		for(Tour tour : conjuntoTours){
+			if(tour.getIdentificador().equals(id)){
+				retorno = tour; 
+			}
+		}
+		
+		return retorno; 
+	}
+	
+	//Devolver el index del tour con identificador
+	public int getIndex(String id){
+		int retorno = -1; 
+		
+		for(Tour tour : conjuntoTours){
+			if(tour.getIdentificador().equals(id)){
+				retorno = conjuntoTours.indexOf(tour); 
+			}
+		}
+		
+		return retorno; 
+	}
+	
+	//Modificar tour en el index
+	public void setTour(int index, Tour tour){
+		conjuntoTours.set(index, tour);
+	}
 }

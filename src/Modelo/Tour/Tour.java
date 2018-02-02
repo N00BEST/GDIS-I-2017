@@ -76,4 +76,29 @@ public class Tour {
 	public void setNombre(String nombre) {
 		this.Nombre = nombre; 
 	}
+	
+	/*Verifica si un punto de interés está contenido en la secuencia de un tour
+	 * @return true si el punto de interés está en la secuencia, false si no. 
+	*/
+	public boolean contiene(PuntoInteres PI) {
+		
+		if(this.PuntoInicial == null && this.SecuenciaPI == null) {
+			return false; 
+		} else {
+			if(this.PuntoInicial != null && 
+			   this.PuntoInicial.get_Coordenada() == PI.get_Coordenada()){
+				System.out.println("Coordenada punto inicial: " + PuntoInicial.get_Coordenada());
+				return true; 
+			} else if(this.SecuenciaPI != null){
+				for(PuntoInteres pi : this.SecuenciaPI){
+					if(pi.get_Coordenada() == PI.get_Coordenada()){
+						System.out.println("Coordenada coincide: " + pi.get_Coordenada());
+						return true; 
+					}
+				}
+			}
+		}
+		
+		return false; 
+	}
 }
