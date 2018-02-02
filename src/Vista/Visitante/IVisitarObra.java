@@ -17,13 +17,53 @@ import javax.swing.Icon;
  * @author manue
  */
 public class IVisitarObra extends javax.swing.JFrame {
-
+    boolean avanzar=false;
     /**
      * Creates new form IVisitarObra
      */
     public IVisitarObra() {
         initComponents();
+        
     }
+    
+    public void MostrarObra(String identificador){
+        
+        Admin_O ctrlObras = Admin_O.getInstance();
+        HashMap<String, String> obra = ctrlObras.consultar(identificador);
+        Icon img = ctrlObras.get_Imagen(identificador);        
+        
+        this.txtTitulo.setText(obra.get("Titulo"));
+        System.out.println("----->titulo:"+obra.get("Titulo"));   
+        this.txtAnoCreacion.setText(obra.get("ACreacion"));
+        System.out.println("----->AñoCreacion:"+obra.get("ACreacion"));     
+        this.txtIdentificador.setText(obra.get("Identificador"));
+        System.out.println("----->Año de creacion:"+obra.get("ACreacion"));
+        this.txtAutorA.setText(obra.get("ApellidoA"));
+        System.out.println("----->Apellido:"+obra.get("ApellidoA"));
+        this.txtAutorN.setText(obra.get("NombreA"));
+        System.out.println("----->Nombre:"+obra.get("NombreA"));
+        this.txtUbicacion.setText(obra.get("Ubicacion"));
+        System.out.println("----->Ubicacion:"+obra.get("Ubicacion"));
+        this.txtDescripcion.setText(obra.get("Descripcion"));
+        System.out.println("----->Descripcion:"+obra.get("Descripcion"));
+        
+        if (img== null){
+            this.lblImagen.setText("Sin Imagen");
+        }else{
+            this.lblImagen.setIcon(img);
+        }
+        this.setVisible(true);
+        //aqui va la validacion
+       // while(avanzar==false){
+            
+        //}
+        avanzar=false;
+        
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,13 +83,19 @@ public class IVisitarObra extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnAvanzar = new javax.swing.JButton();
         lblImagen = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblAutorN = new javax.swing.JLabel();
+        lblAutorA = new javax.swing.JLabel();
+        lblAnoCreacion = new javax.swing.JLabel();
+        lblUbicacion = new javax.swing.JLabel();
+        lblIdentificador = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
         txtAutorN = new javax.swing.JTextField();
+        txtAutorA = new javax.swing.JTextField();
         txtAnoCreacion = new javax.swing.JTextField();
         txtUbicacion = new javax.swing.JTextField();
         txtIdentificador = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        txtAutorA = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,61 +114,84 @@ public class IVisitarObra extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
 
         btnAvanzar.setText("Avanzar");
+        btnAvanzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvanzarActionPerformed(evt);
+            }
+        });
 
         lblImagen.setText("Imagen");
         lblImagen.setMaximumSize(new java.awt.Dimension(0, 0));
         lblImagen.setMinimumSize(new java.awt.Dimension(0, 0));
         lblImagen.setName(""); // NOI18N
 
-        txtTitulo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTituloActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnCancelar)
+                        .addGap(157, 157, 157)
+                        .addComponent(btnAvanzar)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                                .addComponent(btnAvanzar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAutorN)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTitulo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAnoCreacion))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUbicacion))
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDescripcion))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdentificador)))))
+                                .addComponent(txtIdentificador))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUbicacion))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtAnoCreacion))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(11, 11, 11)
+                                .addComponent(txtAutorN)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(40, 40, 40)
+                                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblAutorN, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(117, 117, 117)
+                                        .addComponent(lblAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblAnoCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblIdentificador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,32 +199,38 @@ public class IVisitarObra extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
+                    .addComponent(lblTitulo)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
+                    .addComponent(lblAutorN)
+                    .addComponent(lblAutorA)
                     .addComponent(txtAutorN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
+                    .addComponent(lblAnoCreacion)
                     .addComponent(txtAnoCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
+                    .addComponent(lblUbicacion)
                     .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
+                    .addComponent(lblIdentificador)
                     .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(10, 10, 10)
+                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
                     .addComponent(btnAvanzar))
                 .addContainerGap())
@@ -164,48 +239,17 @@ public class IVisitarObra extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void mostrarObras(PuntoInteres Pi){
-        this.setLocationRelativeTo(null); 		 
-        this.setVisible(true);      
-        Admin_PI ctrlPI = Admin_PI.getInstance();
-        ArrayList<HashMap> lista = ctrlPI.getObrasAsociadasPI(Pi.get_Coordenada());
-        
-        Admin_O ctrlObras = Admin_O.getInstance();
-       
-        
-        for(HashMap<String,String> obra: lista){
-            Icon img = ctrlObras.get_Imagen(obra.get("Identificador"));
-            
-            txtTitulo.setText(obra.get("Titulo"));
-            System.out.println(obra.get("Titulo"));
-            txtIdentificador.setText(obra.get("Identificador"));
-            System.out.println(obra.get("Identificador"));
-            txtAnoCreacion.setText(obra.get("ACreacion"));
-            System.out.println(obra.get("ACreacion"));
-            txtAutorN.setText(obra.get("ApellidoA"));
-            System.out.println(obra.get("ApellidoA"));
-            txtAutorA.setText(obra.get("NombreA"));
-            System.out.println(obra.get("NombreA"));
-            txtUbicacion.setText(obra.get("Ubicacion"));   
-            System.out.println(obra.get("Ubicacion"));
-            txtDescripcion.setText(obra.get("Descripcion"));
-            System.out.println(obra.get("Descripcion"));
-            lblImagen.setIcon(img);
-  
-        }
-                
-        
-    }
-    
-    
-    
-    
-    
-    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTituloActionPerformed
+    private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed
+        avanzar=true;
+    }//GEN-LAST:event_btnAvanzarActionPerformed
 
+    
+ 
+    
+    
+    
+    
+    
     
     
     
@@ -257,7 +301,13 @@ public class IVisitarObra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lblAnoCreacion;
+    private javax.swing.JLabel lblAutorA;
+    private javax.swing.JLabel lblAutorN;
+    private javax.swing.JLabel lblIdentificador;
     private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUbicacion;
     private javax.swing.JTextField txtAnoCreacion;
     private javax.swing.JTextField txtAutorA;
     private javax.swing.JTextField txtAutorN;

@@ -114,9 +114,30 @@ public class Ctrl_Recorrido {
             ConjuntoPI cpi = new ConjuntoPI();
             cpi.setConjuntoPI(TourSeleccionado.getSecuenciaPI());
             IVisitarObra ivisitarObra = new IVisitarObra();
+            String ident="";
+            //Ciclo para recorrer las obras del pi inicial
+            
+            for(int i = 0; i < TourSeleccionado.getPuntoInicial().getSecObrasAsoc().size(); i++) {
+                    ident += TourSeleccionado.getPuntoInicial().getSecObrasAsoc().get(i);
+                    ivisitarObra.MostrarObra(ident);
+                    ident ="";
+                    ivisitarObra.setVisible(false);
+            }    
+            //para todos los puntos
+            ident="";
+            //Ciclo para recorrer todos los pi del tour
             for(PuntoInteres Pi : cpi.getConjuntoPI()){
-                ivisitarObra.mostrarObras(Pi);
+                //Ciclo para extraer todas las obras del punto de interes
+                //System.out.println("Coordenada del punto de interes:"+Pi.get_Coordenada());
+                // System.out.println("Obras:"+Pi.get_ObrasAsociadasString());
+                for(int i = 0; i < Pi.getSecObrasAsoc().size(); i++) {
+                    ident += Pi.getSecObrasAsoc().get(i);
+                    ivisitarObra.MostrarObra(ident);
+                    ident ="";
+                    
+                }            
             }
+           
             
         }
 }

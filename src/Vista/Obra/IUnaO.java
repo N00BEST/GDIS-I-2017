@@ -21,7 +21,9 @@ public class IUnaO extends javax.swing.JFrame {
         initComponents();
         
         Admin_O ctrlObras = Admin_O.getInstance();
+        
         HashMap<String, String> obra = ctrlObras.consultar(identificador);
+        
         Icon img = ctrlObras.get_Imagen(identificador);
         
         jTextFieldTitulo.setText(obra.get("Titulo"));

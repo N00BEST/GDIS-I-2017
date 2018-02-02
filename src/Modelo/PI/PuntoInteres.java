@@ -8,6 +8,10 @@ public class PuntoInteres {
     private int coordenada;
     private ArrayList secObrasAsoc;
 
+    public ArrayList getSecObrasAsoc() {
+        return secObrasAsoc;
+    }
+
     public PuntoInteres(String ubi, char disp, int coordenada, ArrayList secObrasAsoc) {
         this.ubi = ubi;
         this.disp = disp;
