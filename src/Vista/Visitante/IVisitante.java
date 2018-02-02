@@ -89,7 +89,8 @@ public class IVisitante extends javax.swing.JFrame {
             ctrl_Recorrido.consultarToursDisponibles();
             this.dispose();
         }else{
-            System.out.println("AQUI SE MOSTRARIAN LAS OBRAS");
+            this.dispose();
+            ctrl_Recorrido.recorrerTour();
         }
     }//GEN-LAST:event_btnRecorrerTourActionPerformed
 

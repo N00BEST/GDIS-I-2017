@@ -1,6 +1,8 @@
 
 package Controlador;
 
+import Modelo.PI.ConjuntoPI;
+import Modelo.PI.PuntoInteres;
 import Modelo.Tour.ConjuntoTours;
 import Modelo.Tour.Tour;
 import Vista.Admin.IAcceso;
@@ -8,7 +10,10 @@ import Vista.Visitante.IVisitante;
 import Vista.Visitante.IConsultarToursDisponibles;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-
+import Vista.Obra.IUnaO;
+import Vista.PI.IConPI;
+import Vista.Visitante.IVisitarObra;
+import java.util.HashMap;
 
 public class Ctrl_Recorrido {
         private static Ctrl_Recorrido uniqueCtrl_Recorrido=null;
@@ -18,8 +23,6 @@ public class Ctrl_Recorrido {
     public static Tour getTourSeleccionado() {
         return TourSeleccionado;
     }
-         
-        
         //Metodos
         //Constructor
         private Ctrl_Recorrido(){}
@@ -27,9 +30,6 @@ public class Ctrl_Recorrido {
         public static void setTourSeleccionado(Tour TourSeleccionado) {
             Ctrl_Recorrido.TourSeleccionado = TourSeleccionado;
         }
-       
-        
-        
         public static Ctrl_Recorrido getInstance(){
             if (uniqueCtrl_Recorrido == null){
                 uniqueCtrl_Recorrido= new Ctrl_Recorrido();
@@ -45,7 +45,6 @@ public class Ctrl_Recorrido {
         }
         //Generar el subconjuto de tours disponibles, abrir IConsultarToursDispo
         //nibles
-        
         public static ArrayList<Tour> generarTourDisponible(ArrayList<Tour> ct){
             ArrayList<Tour> sc = new ArrayList();
             if(ct.size() > 0){
@@ -60,14 +59,10 @@ public class Ctrl_Recorrido {
                     
                 }
             return sc;
-        
         }
-        
         public static void establecerTourSeleccionado(ArrayList<Tour> ct, int i){
             ArrayList<Tour> sc = generarTourDisponible(ct);
             setTourSeleccionado(sc.get(i));
-        
-        
         }
         public void consultarToursDisponibles(){
             //Abre la interfaz
@@ -89,12 +84,9 @@ public class Ctrl_Recorrido {
                     String[] fila = new String[1]; 
                     for(Tour t : sc){
                         fila[0] = t.getNombre();
-
                         tblToursD.addRow(fila);
-                    }
-            
-            }
-            
+                    }         
+            }           
             //hacer visible la interfaz            
             ictd.setVisible(true);
         }
@@ -102,8 +94,7 @@ public class Ctrl_Recorrido {
         public void finalizar(){
             IVisitante ivisitante = new IVisitante();
             ivisitante.setLocationRelativeTo(null); 		 
-            ivisitante.setVisible(true); 
-                
+            ivisitante.setVisible(true);       
         }
         //Salir del componente de visitante
         public void salir(){
@@ -115,9 +106,18 @@ public class Ctrl_Recorrido {
         public static String consultarDisponibilidad(Tour t){
             return t.getDisponibilidad();    
         }
-        
         public void agregarTour(Tour t,ArrayList<Tour> sc){
             sc.add(t);
+        }
+        
+        public void recorrerTour(){
+            ConjuntoPI cpi = new ConjuntoPI();
+            cpi.setConjuntoPI(TourSeleccionado.getSecuenciaPI());
+            IVisitarObra ivisitarObra = new IVisitarObra();
+            for(PuntoInteres Pi : cpi.getConjuntoPI()){
+                ivisitarObra.mostrarObras(Pi);
+            }
+            
         }
 }
         

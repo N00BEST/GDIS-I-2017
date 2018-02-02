@@ -13,7 +13,7 @@ public class Tour {
 	public Tour(String id, String nombre) {
 		this.Identificador = id; 
 		this.Nombre = nombre; 
-		this.Disponibilidad = "N"; 
+		this.Disponibilidad = "S"; 
 		this.PuntoInicial = null; 
 		this.SecuenciaPI = new ArrayList(); 
 	}

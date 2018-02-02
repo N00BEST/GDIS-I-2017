@@ -14,7 +14,7 @@ public class Data {
     
     String obrasFilePath = "src/Data/Obras.txt";
     String piFilePath = "src/Data/PI.txt";
-    String imgPath = "src/Imagenes/";
+    String imgPath = "Imagenes/";
         
     
     //ATRIBUTOS

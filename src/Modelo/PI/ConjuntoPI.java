@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class ConjuntoPI {
     private ArrayList<PuntoInteres> conjuntoPI;
+
+    
     
     //Constructor
     public ConjuntoPI() {
@@ -140,5 +142,9 @@ public class ConjuntoPI {
     
     public ArrayList<PuntoInteres> getConjuntoPI() {
 	    return this.conjuntoPI; 
+    }
+    
+    public void setConjuntoPI(ArrayList<PuntoInteres> conjuntoPI) {
+        this.conjuntoPI = conjuntoPI;
     }
 }
