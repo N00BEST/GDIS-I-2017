@@ -243,7 +243,15 @@ public class Ctrl_AdminTours {
 		ArrayList<PuntoInteres> secuenciaPI = tourSeleccionado.getSecuenciaPI(); 
 		
 		if(tourSeleccionado.getPuntoInicial() != null) {
-			secuenciaPI.add(0, tourSeleccionado.getPuntoInicial()); 
+			if(secuenciaPI == null) {
+			         secuenciaPI = new ArrayList(); 
+			}
+			
+			System.out.println("linea 250 CARD(SecuenciaPI) = " + secuenciaPI.size());
+			
+			secuenciaPI.add(0, tourSeleccionado.getPuntoInicial());
+			
+			System.out.println("linea 254 CARD(SecuenciaPI) = " + secuenciaPI.size());
 			tienePuntoInicial = true; 
 		} else {
 			tienePuntoInicial = false; 
@@ -268,13 +276,10 @@ public class Ctrl_AdminTours {
 			iAgregarPI.desplegarMensaje("No existen puntos de interés disponibles");
 		}
 		
+		System.out.println("linea 279 CARD(SecuenciaPI) = " + secuenciaPI.size());
+		
 		if(secuenciaPI != null && secuenciaPI.size() > 0){
 			nuevaSecuencia = secuenciaPI; 
-			
-			if(tourSeleccionado.getPuntoInicial() != null) {
-				nuevaSecuencia.add(0, tourSeleccionado.getPuntoInicial());
-				tienePuntoInicial = true; 
-			}
 			
 			desplegar(iAgregarPI.getTblSecuencia());
 			actualizarPosicion(iAgregarPI);
@@ -282,7 +287,7 @@ public class Ctrl_AdminTours {
 			nuevaSecuencia = new ArrayList();
 		}
 		
-		System.out.println("CARD(SecuenciaPI) = " + nuevaSecuencia.size());		
+		System.out.println("linea 290 CARD(SecuenciaPI) = " + nuevaSecuencia.size());		
 		iAgregarPI.setVisible(true);
 	}
 	
@@ -328,8 +333,9 @@ public class Ctrl_AdminTours {
 			//Actualizar combo box
 			actualizarPosicion(iAgregarPI);
 			
-			return true; 
+			iAgregarPI.btnQuitarEnabled(true);
 			
+			return true; 
 		} else {
 			iAgregarPI.desplegarMensaje("El punto ya fue añadido a la secuencia.");
 		}
@@ -343,41 +349,26 @@ public class Ctrl_AdminTours {
 		//Buscar punto de interés a quitar
 		PuntoInteres pi = Data.conjuntoPI.getPI(coordenada);
 		
-		if(tourSeleccionado.getSecuenciaPI() == null) {
-			//Retirar el punto de la secuencia 
-			DefaultTableModel tblSecuencia = iAgregarPI.getTblSecuencia();
+		System.out.println("Coordenada a quitar: " + pi.get_Coordenada());
+		
+		if(!tourSeleccionado.contiene(pi)){
 			if(nuevaSecuencia.indexOf(pi) == 0 && tienePuntoInicial) {
 				tienePuntoInicial = false; 
 			}
-			iAgregarPI.desplegarMensaje(""); 
-			tblSecuencia.removeRow(nuevaSecuencia.indexOf(pi));
 			
-			boolean retorno = nuevaSecuencia.remove(pi);
-			//Actualizar tabla secuencia
-			desplegar(iAgregarPI.getTblSecuencia());
-                        //Actualizar combo box
-			actualizarPosicion(iAgregarPI);
-			return retorno; 
-		} else {
-			if(!tourSeleccionado.getSecuenciaPI().contains(pi)){
-				//Retirar el punto de la secuencia 
-				DefaultTableModel tblSecuencia = iAgregarPI.getTblSecuencia();
-				if(nuevaSecuencia.indexOf(pi) == 0 && tienePuntoInicial) {
-					tienePuntoInicial = false; 
-				}
-				iAgregarPI.desplegarMensaje(""); 
-				tblSecuencia.removeRow(nuevaSecuencia.indexOf(pi));
-				
-				boolean retorno = nuevaSecuencia.remove(pi);
-				//Actualizar tabla secuencia
-				desplegar(iAgregarPI.getTblSecuencia());
-				//Actualizar combo box
-				actualizarPosicion(iAgregarPI);
-				return retorno; 
-			} else {
-				iAgregarPI.desplegarMensaje("El punto pertenece a la secuencia original del tour."+
-				                            " Para eliminarlo vaya a Modificar Tour > Eliminar PI");
+			iAgregarPI.getTblSecuencia().removeRow(nuevaSecuencia.indexOf(pi));
+			nuevaSecuencia.remove(pi); 
+			
+			if(nuevaSecuencia.size() == 0){
+				iAgregarPI.btnQuitarEnabled(false); 
 			}
+			
+			desplegar(iAgregarPI.getTblSecuencia());
+			//Actualizar combo box
+			actualizarPosicion(iAgregarPI);
+			
+		} else {
+			iAgregarPI.desplegarMensaje("No puede retirar el punto de interés porque pertenece a la secuencia original del Tour. Para eliminarlo vaya a Modificar Tour > Eliminar PI.");
 		}
 		
 		return false; 
@@ -399,11 +390,14 @@ public class Ctrl_AdminTours {
 			if(tienePuntoInicial){
 				tourSeleccionado.setPuntoInicial(nuevaSecuencia.get(0));
 				nuevaSecuencia.remove(0);
+				tienePuntoInicial = false; 
 			}
 			
+			if(nuevaSecuencia.size() == 0) {
+				nuevaSecuencia = null; 
+			}
 			tourSeleccionado.setSecuenciaPI(nuevaSecuencia); 
 			tourSeleccionado.setDisponibilidad(determinarDisponibilidad());
-			nuevaSecuencia = null; 
 			tienePuntoInicial = false; 
 			return true; 
 		}
@@ -519,25 +513,26 @@ public class Ctrl_AdminTours {
 		ArrayList<PuntoInteres> secuencia = tourSeleccionado.getSecuenciaPI();
 		
 		//Si la cardinalidad del recorrido es mayor a 0
-		if(tourSeleccionado.getSecuenciaPI().size() > 0) {
+		if(secuencia != null && tourSeleccionado.getPuntoInicial() != null) {
 			//Revisar cuántos tienen disponibilidad S 
-			for(PuntoInteres pi : tourSeleccionado.getSecuenciaPI()){
+			for(PuntoInteres pi : secuencia){
 				if(pi.get_Disponibilidad() == 'S'){
 					disponibles++; 
 				}
 			}
-		}
-		
-		if(tourSeleccionado.getPuntoInicial() == null ||
-		   tourSeleccionado.getPuntoInicial().get_Disponibilidad() == 'N' ||
-		   secuencia.isEmpty() ||
-		   disponibles < 2 ||
-		   secuencia.get(secuencia.size() - 1).get_Disponibilidad() == 'N'){
-			//Si no tiene punto inicial, si el punto inicial no está
-			//disponible, si el punto final no está disponible o si
-			//no tiene algún punto intermedio disponible
+			
+			if(tourSeleccionado.getPuntoInicial().get_Disponibilidad() == 'N' ||
+			   secuencia.isEmpty() ||
+			   disponibles < 2 ||
+			   secuencia.get(secuencia.size() - 1).get_Disponibilidad() == 'N'){
+				//Si no tiene punto inicial, si el punto inicial no está
+				//disponible, si el punto final no está disponible o si
+				//no tiene algún punto intermedio disponible
+				disponibilidad = "N"; 
+			}
+		} else {
 			disponibilidad = "N"; 
-		}
+		}	
 		
 		return disponibilidad; 
 	}
@@ -593,6 +588,7 @@ public class Ctrl_AdminTours {
 	
 	//Cancelar agregar o eliminar PI
 	public void cancelar(JFrame interfaz) {
+		System.out.println("en Cancelar CARD(SecuenciaPI) = " + nuevaSecuencia.size());
 		nuevaSecuencia = null; 
 		interfaz.dispose(); 
 	}
