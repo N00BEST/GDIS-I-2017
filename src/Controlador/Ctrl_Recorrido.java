@@ -18,6 +18,8 @@ import java.util.HashMap;
 public class Ctrl_Recorrido {
         private static Ctrl_Recorrido uniqueCtrl_Recorrido=null;
         private static Tour TourSeleccionado=null;
+        private static int iActual=0;
+        private static PuntoInteres piActual=null;
         //Solucion temporal del arraylist
 
     public static Tour getTourSeleccionado() {
@@ -110,33 +112,53 @@ public class Ctrl_Recorrido {
             sc.add(t);
         }
         
+        public void avanzar(IVisitarObra ivo){
+            iActual++;
+            if(piActual != null && iActual < piActual.getSecObrasAsoc().size()){
+                String ident="";
+                ident += piActual.getSecObrasAsoc().get(iActual);
+                ivo.MostrarObra(ident);
+            }else{
+                if(piActual != null &&TourSeleccionado.getPosicionPI(piActual) < TourSeleccionado.getTam()){
+                    piActual=TourSeleccionado.getSiguientePIDis(piActual);
+                    iActual=0;
+                }else {
+                    ivo.dispose();
+                    visitante();
+                }
+                
+                
+            }  
+        }
+        
         public void recorrerTour(){
-            ConjuntoPI cpi = new ConjuntoPI();
-            cpi.setConjuntoPI(TourSeleccionado.getSecuenciaPI());
+            piActual=TourSeleccionado.getPuntoInicial();
+            iActual=0;
             IVisitarObra ivisitarObra = new IVisitarObra();
             String ident="";
-            //Ciclo para recorrer las obras del pi inicial
+            ident += TourSeleccionado.getPuntoInicial().getSecObrasAsoc().get(iActual);
+            ivisitarObra.MostrarObra(ident);
+            ivisitarObra.setVisible(true);
+              
             
-            for(int i = 0; i < TourSeleccionado.getPuntoInicial().getSecObrasAsoc().size(); i++) {
-                    ident += TourSeleccionado.getPuntoInicial().getSecObrasAsoc().get(i);
-                    ivisitarObra.MostrarObra(ident);
-                    ident ="";
-                    ivisitarObra.setVisible(false);
-            }    
+            
+            
+            
             //para todos los puntos
-            ident="";
+            //ident="";
             //Ciclo para recorrer todos los pi del tour
-            for(PuntoInteres Pi : cpi.getConjuntoPI()){
+           // for(PuntoInteres Pi : cpi.getConjuntoPI()){
                 //Ciclo para extraer todas las obras del punto de interes
                 //System.out.println("Coordenada del punto de interes:"+Pi.get_Coordenada());
                 // System.out.println("Obras:"+Pi.get_ObrasAsociadasString());
-                for(int i = 0; i < Pi.getSecObrasAsoc().size(); i++) {
-                    ident += Pi.getSecObrasAsoc().get(i);
-                    ivisitarObra.MostrarObra(ident);
-                    ident ="";
+               // for(int i = 0; i < Pi.getSecObrasAsoc().size(); i++) {
+                  //  ident += Pi.getSecObrasAsoc().get(i);
+                  //  ivisitarObra.MostrarObra(ident);
+                  //  ident ="";
                     
-                }            
-            }
+               // } 
+                
+          //  }
            
             
         }
