@@ -14,12 +14,17 @@ import Vista.Obra.IUnaO;
 import Vista.PI.IConPI;
 import Vista.Visitante.IVisitarObra;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JOptionPane;
 
 public class Ctrl_Recorrido {
         private static Ctrl_Recorrido uniqueCtrl_Recorrido=null;
         private static Tour TourSeleccionado=null;
         private static int iActual=0;
         private static PuntoInteres piActual=null;
+        private static int TiempoRestante;
+        private static Timer reloj;
         //Solucion temporal del arraylist
 
     public static Tour getTourSeleccionado() {
@@ -27,15 +32,15 @@ public class Ctrl_Recorrido {
     }
         //Metodos
         //Constructor
-        private Ctrl_Recorrido(){}
+        private Ctrl_Recorrido(){
+        }
 
         public static void setTourSeleccionado(Tour TourSeleccionado) {
             Ctrl_Recorrido.TourSeleccionado = TourSeleccionado;
         }
         public static Ctrl_Recorrido getInstance(){
             if (uniqueCtrl_Recorrido == null){
-                uniqueCtrl_Recorrido= new Ctrl_Recorrido();
-                ;
+                uniqueCtrl_Recorrido= new Ctrl_Recorrido();  
             }
             return uniqueCtrl_Recorrido;
         }
@@ -111,56 +116,77 @@ public class Ctrl_Recorrido {
         public void agregarTour(Tour t,ArrayList<Tour> sc){
             sc.add(t);
         }
+        //JOptionPane.showMessageDialog(ivo, "Tiempo para ver la obra agotado(5 minutos)");
+        public boolean tiempoAgotado(int tiempo){
+            if(tiempo <= 0){
+                return true;
+            }
+            return false;
+        }
         
+        public void reiniciarTiempo(IVisitarObra ivo){
+            reloj = new Timer(); 
+            TiempoRestante = 10; 
+            TimerTask tarea = new TimerTask(){
+                public void run(){
+                       contarTiempo(ivo); 
+                }
+            };
+            reloj.scheduleAtFixedRate(tarea, 1000, 1000);
+        }
+        
+        public void contarTiempo(IVisitarObra ivo){
+            TiempoRestante--; 
+            if(tiempoAgotado(TiempoRestante)){
+                reloj.cancel(); 
+                ivo.setVisible(false); 
+                JOptionPane.showMessageDialog(ivo, "Tiempo para ver la obra agotado. Debe avanzar.");
+                ivo.setVisible(true);
+                avanzar(ivo);
+            }
+        }
+
         public void avanzar(IVisitarObra ivo){
+            if(!tiempoAgotado(TiempoRestante)){
+                reloj.cancel();
+            }
             iActual++;
             if(piActual != null && iActual < piActual.getSecObrasAsoc().size()){
+                
                 String ident="";
                 ident += piActual.getSecObrasAsoc().get(iActual);
                 ivo.MostrarObra(ident);
+                reiniciarTiempo(ivo);
             }else{
                 if(piActual != null &&TourSeleccionado.getPosicionPI(piActual) < TourSeleccionado.getTam()){
                     piActual=TourSeleccionado.getSiguientePIDis(piActual);
-                    iActual=0;
+                    if(piActual!= null){
+                        iActual=0;
+                        String ident="";
+                        ident += piActual.getSecObrasAsoc().get(iActual);
+                        ivo.MostrarObra(ident);
+                        reiniciarTiempo(ivo);
+                    } else {
+                        iActual = -1; 
+                    }
                 }else {
                     ivo.dispose();
                     visitante();
                 }
-                
-                
             }  
+            
         }
         
         public void recorrerTour(){
+            
             piActual=TourSeleccionado.getPuntoInicial();
             iActual=0;
             IVisitarObra ivisitarObra = new IVisitarObra();
             String ident="";
             ident += TourSeleccionado.getPuntoInicial().getSecObrasAsoc().get(iActual);
             ivisitarObra.MostrarObra(ident);
-            ivisitarObra.setVisible(true);
-              
-            
-            
-            
-            
-            //para todos los puntos
-            //ident="";
-            //Ciclo para recorrer todos los pi del tour
-           // for(PuntoInteres Pi : cpi.getConjuntoPI()){
-                //Ciclo para extraer todas las obras del punto de interes
-                //System.out.println("Coordenada del punto de interes:"+Pi.get_Coordenada());
-                // System.out.println("Obras:"+Pi.get_ObrasAsociadasString());
-               // for(int i = 0; i < Pi.getSecObrasAsoc().size(); i++) {
-                  //  ident += Pi.getSecObrasAsoc().get(i);
-                  //  ivisitarObra.MostrarObra(ident);
-                  //  ident ="";
-                    
-               // } 
-                
-          //  }
-           
-            
+            ivisitarObra.setVisible(true);  
+            reiniciarTiempo(ivisitarObra);
         }
 }
         

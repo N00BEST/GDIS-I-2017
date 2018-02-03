@@ -6,44 +6,50 @@ import Controlador.Ctrl_Recorrido;
 import Modelo.PI.PuntoInteres;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.Icon;
 
 public class IVisitarObra extends javax.swing.JFrame {
-    boolean avanzar=false;
+    int tiempoRestante;
+    boolean cancelar=false;
  
     public IVisitarObra() {
-        initComponents();
-        
+        initComponents(); 
     }
     
-    public void MostrarObra(String identificador){
-        
+    public void MostrarObra(String identificador){       
         Admin_O ctrlObras = Admin_O.getInstance();
         HashMap<String, String> obra = ctrlObras.consultar(identificador);
         Icon img = ctrlObras.get_Imagen(identificador);        
-        System.out.println("----->"+img);
+       // System.out.println("----->"+img);
         this.txtTitulo.setText(obra.get("Titulo"));
-        System.out.println("----->titulo:"+obra.get("Titulo"));   
+        //System.out.println("----->titulo:"+obra.get("Titulo"));   
         this.txtAnoCreacion.setText(obra.get("ACreacion"));
-        System.out.println("----->AñoCreacion:"+obra.get("ACreacion"));     
+        //System.out.println("----->AñoCreacion:"+obra.get("ACreacion"));     
         this.txtIdentificador.setText(obra.get("Identificador"));
-        System.out.println("----->identificador:"+obra.get("Identificador"));
-        this.txtAutorA.setText(obra.get("ApellidoA"));
-        System.out.println("----->Apellido:"+obra.get("ApellidoA"));
-        this.txtAutorN.setText(obra.get("NombreA"));
-        System.out.println("----->Nombre:"+obra.get("NombreA"));
+        //System.out.println("----->identificador:"+obra.get("Identificador"));
+        if (obra.get("ApellidoA") != null && !obra.get("ApellidoA").equals("")){
+            this.txtAutorA.setText(obra.get("ApellidoA"));
+        } else {
+            this.txtAutorA.setText("Anónimo");
+        }
+        //System.out.println("----->Apellido:"+obra.get("ApellidoA"));
+        if (obra.get("NombreA") != null && !obra.get("NombreA").equals("")){
+            this.txtAutorN.setText(obra.get("NombreA"));
+        } else {
+            this.txtAutorN.setText("Anónimo");
+        }
+        //System.out.println("----->Nombre:"+obra.get("NombreA"));
         this.txtUbicacion.setText(obra.get("Ubicacion"));
-        System.out.println("----->Ubicacion:"+obra.get("Ubicacion"));
+       // System.out.println("----->Ubicacion:"+obra.get("Ubicacion"));
         this.txtDescripcion.setText(obra.get("Descripcion"));
-        System.out.println("----->Descripcion:"+obra.get("Descripcion"));
+       // System.out.println("----->Descripcion:"+obra.get("Descripcion"));
         if (img == null){
             this.lblImagen.setText("Sin Imagen");
         }else{
             this.lblImagen.setIcon(img);
-        }
-        
-        
-        
+        } 
     }
    
     @SuppressWarnings("unchecked")
@@ -222,7 +228,7 @@ public class IVisitarObra extends javax.swing.JFrame {
 
     private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed
         Ctrl_Recorrido CtrlRecorrido = Ctrl_Recorrido.getInstance();
-        CtrlRecorrido.avanzar(this);
+        CtrlRecorrido.avanzar(this); 
     }//GEN-LAST:event_btnAvanzarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -231,10 +237,7 @@ public class IVisitarObra extends javax.swing.JFrame {
         ctrlRecorrido.visitante();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-    
-    
-    
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

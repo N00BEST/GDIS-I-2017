@@ -510,7 +510,7 @@ public class Ctrl_AdminTours {
 			fila[1] = puntoInicial.get_Coordenada() + ""; 
 			fila[2] = puntoInicial.get_Ubicacion(); 
 			tblSecuencia.addRow(fila); 
-		}
+		}                
 		if(nuevaSecuencia != null && nuevaSecuencia.size() > 0) {
 			//Si hay puntos que agregar
 			//auxiliares para ciclos for
@@ -598,11 +598,11 @@ public class Ctrl_AdminTours {
 		}
 		if(secuenciaPI != null && secuenciaPI.size() > 0){
 			nuevaSecuencia = secuenciaPI; 
-			
-			desplegar(iEliminarPI.getTblSubconjuntoPI());
 		} else {
 			nuevaSecuencia = null; 
 		}
+                
+                desplegar(iEliminarPI.getTblSubconjuntoPI());
 		
 		iEliminarPI.setVisible(true); 
 	}
