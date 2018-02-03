@@ -2,6 +2,9 @@ package Data;
 
 import Modelo.Obra.Patrimonio;
 import Modelo.PI.ConjuntoPI;
+import Modelo.PI.PuntoInteres;
+import Modelo.Tour.ConjuntoTours;
+import Modelo.Tour.Tour;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ public class Data {
     String obrasFilePath = "src/Data/Obras.txt";
     String piFilePath = "src/Data/PI.txt";
     String imgPath = "Imagenes/";
+    String tourFilePath = "src/Data/Tours.txt"; 
         
     
     //ATRIBUTOS
@@ -44,6 +48,7 @@ public class Data {
         estatus[0] = 'D';
         estatus[1] = 'M';
         estatus[2] = 'X';   
+        this.cargarTours();
     }
     
     private void cargarObrasDelPatrimonio(){
@@ -118,5 +123,49 @@ public class Data {
                 System.out.println(mensaje);
             }    
         }
+    }
+    
+    private void cargarTours(){
+        String content = "";   
+        try{
+            content = new Scanner(new File(tourFilePath),"UTF-8").useDelimiter("\\Z").next();
+            content = content.replaceAll("\n", "&&");
+        }catch(FileNotFoundException e){
+            System.out.println("ERROR: Archivo no encontrado"  + piFilePath);
+        }catch(NoSuchElementException e){
+            System.out.println("ERROR: Elemenot incorrecto al abrir:"  + piFilePath);
+        }
+        
+        String[] lines = content.split("&&");
+        ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
+        Tour aux; 
+        
+        for(String linea: lines){
+            String[] datosTour = linea.split("##");
+            String id = datosTour[0]; 
+            String nombre = datosTour[1]; 
+            
+            aux = new Tour(id, nombre); 
+            if(datosTour[2] != ""){
+                aux.setPuntoInicial(conjuntoPI.getPI(Integer.parseInt(datosTour[2])));
+            }
+            
+            String[] idPIs = datosTour[3].split(", ");
+            ArrayList<PuntoInteres> secuencia = new ArrayList();
+            for(String coordenada: idPIs) {
+                secuencia.add(conjuntoPI.getPI(Integer.parseInt(coordenada))); 
+            }
+            
+            aux.setSecuenciaPI(secuencia);
+            //Aquí debería calcular la disponibilidad
+            conjuntoTours.agregar(aux); 
+            
+        }
+    
+    }
+    
+    private void guardarTours(){
+        
+    
     }
 }
