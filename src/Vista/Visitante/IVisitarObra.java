@@ -16,6 +16,7 @@ public class IVisitarObra extends javax.swing.JFrame {
  
     public IVisitarObra() {
         initComponents(); 
+	this.setTitle("COPRED - Visitar Obra");
     }
     
     public void MostrarObra(String identificador){       
@@ -53,190 +54,122 @@ public class IVisitarObra extends javax.swing.JFrame {
     }
    
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+        private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
-        btnAvanzar = new javax.swing.JButton();
-        lblImagen = new javax.swing.JLabel();
-        lblTitulo = new javax.swing.JLabel();
-        lblAutorN = new javax.swing.JLabel();
-        lblAutorA = new javax.swing.JLabel();
-        lblAnoCreacion = new javax.swing.JLabel();
-        lblUbicacion = new javax.swing.JLabel();
-        lblIdentificador = new javax.swing.JLabel();
-        txtTitulo = new javax.swing.JTextField();
-        txtAutorN = new javax.swing.JTextField();
-        txtAutorA = new javax.swing.JTextField();
-        txtAnoCreacion = new javax.swing.JTextField();
-        txtUbicacion = new javax.swing.JTextField();
-        txtIdentificador = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
+                jTextField5 = new javax.swing.JTextField();
+                lblTitulo = new javax.swing.JLabel();
+                lblAutorN = new javax.swing.JLabel();
+                lblAutorA = new javax.swing.JLabel();
+                lblAnoCreacion = new javax.swing.JLabel();
+                lblUbicacion = new javax.swing.JLabel();
+                lblIdentificador = new javax.swing.JLabel();
+                jPanel1 = new javax.swing.JPanel();
+                jLabel7 = new javax.swing.JLabel();
+                jLabel8 = new javax.swing.JLabel();
+                jLabel9 = new javax.swing.JLabel();
+                jLabel10 = new javax.swing.JLabel();
+                jLabel11 = new javax.swing.JLabel();
+                jLabel12 = new javax.swing.JLabel();
+                lblImagen = new javax.swing.JLabel();
+                btnCancelar = new javax.swing.JButton();
+                btnAvanzar = new javax.swing.JButton();
+                txtAutorA = new javax.swing.JTextField();
+                txtTitulo = new javax.swing.JTextField();
+                txtAutorN = new javax.swing.JTextField();
+                txtDescripcion = new javax.swing.JTextField();
+                txtAnoCreacion = new javax.swing.JTextField();
+                txtUbicacion = new javax.swing.JTextField();
+                txtIdentificador = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setMaximumSize(new java.awt.Dimension(405, 575));
+                setMinimumSize(new java.awt.Dimension(405, 575));
+                setPreferredSize(new java.awt.Dimension(405, 575));
+                getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+                getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 21, 226, -1));
+                getContentPane().add(lblAutorN, new org.netbeans.lib.awtextra.AbsoluteConstraints(459, 27, 154, -1));
+                getContentPane().add(lblAutorA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1956, 27, 169, -1));
+                getContentPane().add(lblAnoCreacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1943, 33, 182, -1));
+                getContentPane().add(lblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1943, 39, 182, -1));
+                getContentPane().add(lblIdentificador, new org.netbeans.lib.awtextra.AbsoluteConstraints(353, 45, 1772, -1));
 
-        jLabel1.setText("Titulo:");
+                jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Autor:");
+                jLabel7.setText("Titulo:");
+                jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 19, -1, 30));
 
-        jLabel3.setText("Año de creación:");
+                jLabel8.setText("Autor:");
+                jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        jLabel4.setText("Ubicación:");
+                jLabel9.setText("Año de creación:");
+                jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jLabel5.setText("Identificador:");
+                jLabel10.setText("Ubicación:");
+                jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
-        jLabel6.setText("Descripción:");
+                jLabel11.setText("Identificador:");
+                jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
+                jLabel12.setText("Descripción:");
+                jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-        btnAvanzar.setText("Avanzar");
-        btnAvanzar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAvanzarActionPerformed(evt);
-            }
-        });
+                lblImagen.setText("Imagen");
+                jPanel1.add(lblImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 340, 210));
 
-        lblImagen.setText("Imagen");
-        lblImagen.setMaximumSize(new java.awt.Dimension(0, 0));
-        lblImagen.setMinimumSize(new java.awt.Dimension(0, 0));
-        lblImagen.setName(""); // NOI18N
+                btnCancelar.setText("Cancelar");
+                btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnCancelarActionPerformed(evt);
+                        }
+                });
+                jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addGap(157, 157, 157)
-                        .addComponent(btnAvanzar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescripcion))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdentificador))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUbicacion))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtAnoCreacion))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(11, 11, 11)
-                                .addComponent(txtAutorN)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(40, 40, 40)
-                                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblAutorN, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(117, 117, 117)
-                                        .addComponent(lblAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblAnoCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lblUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIdentificador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblTitulo)
-                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblAutorN)
-                    .addComponent(lblAutorA)
-                    .addComponent(txtAutorN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAutorA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblAnoCreacion)
-                    .addComponent(txtAnoCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblUbicacion)
-                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblIdentificador)
-                    .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAvanzar))
-                .addContainerGap())
-        );
+                btnAvanzar.setText("Avanzar");
+                btnAvanzar.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnAvanzarActionPerformed(evt);
+                        }
+                });
+                jPanel1.add(btnAvanzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 490, 90, -1));
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                txtAutorA.setEnabled(false);
+                jPanel1.add(txtAutorA, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 130, -1));
 
-    private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed
-        Ctrl_Recorrido CtrlRecorrido = Ctrl_Recorrido.getInstance();
-        CtrlRecorrido.avanzar(this); 
-    }//GEN-LAST:event_btnAvanzarActionPerformed
+                txtTitulo.setEnabled(false);
+                jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 270, -1));
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+                txtAutorN.setEnabled(false);
+                jPanel1.add(txtAutorN, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 120, -1));
+
+                txtDescripcion.setEnabled(false);
+                jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 270, -1));
+
+                txtAnoCreacion.setEnabled(false);
+                jPanel1.add(txtAnoCreacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 240, -1));
+
+                txtUbicacion.setEnabled(false);
+                jPanel1.add(txtUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 270, -1));
+
+                txtIdentificador.setEnabled(false);
+                jPanel1.add(txtIdentificador, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 270, -1));
+
+                getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 530));
+
+                pack();
+        }// </editor-fold>//GEN-END:initComponents
+
+        private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         //Abrir IVisitante
-        Ctrl_Recorrido ctrlRecorrido = Ctrl_Recorrido.getInstance();
+	Ctrl_Recorrido ctrlRecorrido = Ctrl_Recorrido.getInstance();
         ctrlRecorrido.visitante();
         this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+        }//GEN-LAST:event_btnCancelarActionPerformed
+
+        private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed
+        Ctrl_Recorrido CtrlRecorrido = Ctrl_Recorrido.getInstance();
+        CtrlRecorrido.avanzar(this); 
+        }//GEN-LAST:event_btnAvanzarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -270,28 +203,30 @@ public class IVisitarObra extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAvanzar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel lblAnoCreacion;
-    private javax.swing.JLabel lblAutorA;
-    private javax.swing.JLabel lblAutorN;
-    private javax.swing.JLabel lblIdentificador;
-    private javax.swing.JLabel lblImagen;
-    private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblUbicacion;
-    private javax.swing.JTextField txtAnoCreacion;
-    private javax.swing.JTextField txtAutorA;
-    private javax.swing.JTextField txtAutorN;
-    private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtIdentificador;
-    private javax.swing.JTextField txtTitulo;
-    private javax.swing.JTextField txtUbicacion;
-    // End of variables declaration//GEN-END:variables
+        // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JButton btnAvanzar;
+        private javax.swing.JButton btnCancelar;
+        private javax.swing.JLabel jLabel10;
+        private javax.swing.JLabel jLabel11;
+        private javax.swing.JLabel jLabel12;
+        private javax.swing.JLabel jLabel7;
+        private javax.swing.JLabel jLabel8;
+        private javax.swing.JLabel jLabel9;
+        private javax.swing.JPanel jPanel1;
+        private javax.swing.JTextField jTextField5;
+        private javax.swing.JLabel lblAnoCreacion;
+        private javax.swing.JLabel lblAutorA;
+        private javax.swing.JLabel lblAutorN;
+        private javax.swing.JLabel lblIdentificador;
+        private javax.swing.JLabel lblImagen;
+        private javax.swing.JLabel lblTitulo;
+        private javax.swing.JLabel lblUbicacion;
+        private javax.swing.JTextField txtAnoCreacion;
+        private javax.swing.JTextField txtAutorA;
+        private javax.swing.JTextField txtAutorN;
+        private javax.swing.JTextField txtDescripcion;
+        private javax.swing.JTextField txtIdentificador;
+        private javax.swing.JTextField txtTitulo;
+        private javax.swing.JTextField txtUbicacion;
+        // End of variables declaration//GEN-END:variables
 }

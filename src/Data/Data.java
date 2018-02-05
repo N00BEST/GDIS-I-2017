@@ -1,5 +1,6 @@
 package Data;
 
+import Controlador.Ctrl_AdminTours;
 import Modelo.Obra.Patrimonio;
 import Modelo.PI.ConjuntoPI;
 import Modelo.PI.PuntoInteres;
@@ -138,6 +139,7 @@ public class Data {
         
         String[] lines = content.split("&&");
         ConjuntoTours conjuntoTours = ConjuntoTours.getInstance(); 
+	Ctrl_AdminTours ctrlAdminTours = Ctrl_AdminTours.getInstance(); 
         Tour aux; 
         
         for(String linea: lines){
@@ -157,7 +159,7 @@ public class Data {
             }
             
             aux.setSecuenciaPI(secuencia);
-            //Aquí debería calcular la disponibilidad
+            aux.setDisponibilidad(ctrlAdminTours.determinarDisponibilidad(aux)); 
             conjuntoTours.agregar(aux); 
             
         }

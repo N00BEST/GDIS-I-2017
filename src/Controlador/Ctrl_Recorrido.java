@@ -126,7 +126,7 @@ public class Ctrl_Recorrido {
         
         public void reiniciarTiempo(IVisitarObra ivo){
             reloj = new Timer(); 
-            TiempoRestante = 10; 
+            TiempoRestante = 300; 
             TimerTask tarea = new TimerTask(){
                 public void run(){
                        contarTiempo(ivo); 
@@ -178,10 +178,12 @@ public class Ctrl_Recorrido {
         }
         
         public void recorrerTour(){
+            IVisitarObra ivisitarObra = new IVisitarObra();
+	    ivisitarObra.setLocationRelativeTo(null); 
+	    ivisitarObra.setResizable(false); 
             
             piActual=TourSeleccionado.getPuntoInicial();
             iActual=0;
-            IVisitarObra ivisitarObra = new IVisitarObra();
             String ident="";
             ident += TourSeleccionado.getPuntoInicial().getSecObrasAsoc().get(iActual);
             ivisitarObra.MostrarObra(ident);

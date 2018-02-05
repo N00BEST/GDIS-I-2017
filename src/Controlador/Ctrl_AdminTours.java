@@ -441,7 +441,7 @@ public class Ctrl_AdminTours {
 				nuevaSecuencia = null; 
 			}
 			tourSeleccionado.setSecuenciaPI(nuevaSecuencia); 
-			tourSeleccionado.setDisponibilidad(determinarDisponibilidad());
+			tourSeleccionado.setDisponibilidad(determinarDisponibilidad(tourSeleccionado));
 			
 			puntoInicial = null;
 			nuevaSecuencia = null; 
@@ -554,13 +554,13 @@ public class Ctrl_AdminTours {
 	}
 	
 	//Determinar disponibilidad de un tour en base al enunciado
-	private String determinarDisponibilidad(){
+	public String determinarDisponibilidad(Tour tour){
 		String disponibilidad = "S"; 
 		int disponibles = 0; 
-		ArrayList<PuntoInteres> secuencia = tourSeleccionado.getSecuenciaPI();
+		ArrayList<PuntoInteres> secuencia = tour.getSecuenciaPI();
 		
 		//Si la cardinalidad del recorrido es mayor a 0
-		if(secuencia != null && tourSeleccionado.getPuntoInicial() != null) {
+		if(secuencia != null && tour.getPuntoInicial() != null) {
 			//Revisar cuántos tienen disponibilidad S 
 			for(PuntoInteres pi : secuencia){
 				if(pi.get_Disponibilidad() == 'S'){
@@ -568,7 +568,7 @@ public class Ctrl_AdminTours {
 				}
 			}
 			
-			if(tourSeleccionado.getPuntoInicial().get_Disponibilidad() == 'N' ||
+			if(tour.getPuntoInicial().get_Disponibilidad() == 'N' ||
 			   secuencia.isEmpty() ||
 			   disponibles < 2 ||
 			   secuencia.get(secuencia.size() - 1).get_Disponibilidad() == 'N'){
